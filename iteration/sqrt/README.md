@@ -1,4 +1,4 @@
-# Loops and Functions
+# implement the square root function
 As a simple way to play with functions and loops, implement the square root function using Newton's method.
 In this case, Newton's method is to approximate Sqrt(x) by picking a starting point z and then repeating: z - (z*z - x) / (2 * z)
 To begin with, just repeat that calculation 10 times and see how close you get to the answer for various values (1, 2, 3, ...).
