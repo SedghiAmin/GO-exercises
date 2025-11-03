@@ -16,5 +16,13 @@ func main(){
 
 	age := [5]int{65, 39, 38, 2, 94}
 
-	fmt.Println(age[2:3])
+	slice1 := age[1:3]
+	slice2 := age[2:4]
+	
+	fmt.Println(age)
+	fmt.Println(slice1 , slice2)
+
+	slice2[0] = 0
+	fmt.Println(age)
+	fmt.Println(slice1 , slice2)
 }
