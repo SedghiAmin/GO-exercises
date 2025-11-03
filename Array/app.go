@@ -14,7 +14,7 @@ func main(){
 
 	fmt.Println(arr)
 
-	age := [3]int{65, 39, 38}
+	age := [5]int{65, 39, 38, 2, 94}
 
-	fmt.Println(age)
+	fmt.Println(age[2:3])
 }
