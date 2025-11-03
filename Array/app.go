@@ -26,16 +26,16 @@ func main(){
 	fmt.Println(age)
 	fmt.Println(slice1 , slice2)
 
-	type persons []struct{
+	type Person struct{
 		name string
 		age int
 	}
 
-	person := persons{
-		{"amin" , 39},
-		{"ali" , 65},
-	}
+	persons := make([]Person, 0, 5)
+	
+	persons = append(persons, Person{"amin" , 39})
+	persons = append(persons, Person{"ali" , 65})
 
-	fmt.Println(person)
+	fmt.Println(persons)
 
 }
