@@ -11,6 +11,8 @@ type Cars struct{
 }
 
 func main(){
-	fmt.Println(Cars{"Benz", "C200", "Black"});
-	
+	var car = Cars{"Benz", "C200", "Black"}
+	fmt.Println(car);
+	car.color = "blue"
+	fmt.Println("color's car changed to:", car.color)
 }
