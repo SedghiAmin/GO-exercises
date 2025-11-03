@@ -28,3 +28,13 @@ A slice does not store any data, it just describes a section of an underlying ar
 Changing the elements of a slice modifies the corresponding elements of its underlying array.
 
 Other slices that share the same underlying array will see those changes.
+
+# Slice literals
+A slice literal is like an array literal without the length.
+
+This is an array literal:
+
+[3]bool{true, true, false}
+And this creates the same array as above, then builds a slice that references it:
+
+[]bool{true, true, false}

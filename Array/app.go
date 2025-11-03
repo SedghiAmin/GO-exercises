@@ -14,7 +14,7 @@ func main(){
 
 	fmt.Println(arr)
 
-	age := [5]int{65, 39, 38, 2, 94}
+	age := []int{65, 39, 38, 2, 94}
 
 	slice1 := age[1:3]
 	slice2 := age[2:4]
@@ -25,4 +25,17 @@ func main(){
 	slice2[0] = 0
 	fmt.Println(age)
 	fmt.Println(slice1 , slice2)
+
+	type persons []struct{
+		name string
+		age int
+	}
+
+	person := persons{
+		{"amin" , 39},
+		{"ali" , 65},
+	}
+
+	fmt.Println(person)
+
 }
