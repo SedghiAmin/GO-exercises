@@ -10,12 +10,10 @@ type Dimantion struct{
 }
 
 func main(){
-	/*
-	var m map[string]Dimantion
-	m = make(map[string]Dimantion)
-	*/
-	m := make(map[string]Dimantion)
-	m["window"] = Dimantion{Weight: 100, Height: 200}
+	var m = map[string]Dimantion{
+		"window" : {100, 200},
+		"wall" : {400, 700},
+	}
 
-	fmt.Println(m["window"]);
+	fmt.Println(m);
 }
