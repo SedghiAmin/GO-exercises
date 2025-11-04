@@ -31,7 +31,6 @@ func main(){
 		},
 	}
 
-	// نمایش اطلاعات دانش‌آموزان
 	fmt.Printf("List of students; %d student \n", len(students))
 	fmt.Println("==================")
 	for i, student := range students {
