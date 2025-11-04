@@ -43,5 +43,11 @@ func main(){
 		fmt.Println("------------------")
 	}
 
-	
+	newStudent := Student{
+		PersonalInfo: Person{Name: "morteza askari", Age: 25},
+		EductionInfo: Education{Degree: "Diplom", Grade: 12.68},
+	}
+
+	students = append(students, newStudent)
+	fmt.Printf("One student added, all of students are %d person.\n", len(students))
 }
