@@ -4,18 +4,31 @@ import(
 	"fmt"
 )
 
-func fibonacci(x int) int {
-	
-	if x <= 1 {
-		return x
+func fibonacci() func(int) int{
+
+	cache := map[int] int{
+		0 : 0,
+		1 : 1,
 	}
 
-	return fibonacci(x-1) + fibonacci(x-2)	
+	var fibo func(int) int
+	fibo = func(x int) int{
+		if val , ok:= cache[x]; ok{
+			return val
+		}
+		cache[x] = fibo(x-1) + fibo(x-2)
+		return cache[x]
+	}
+
+	return fibo
 
 }
 
-func main() {
-	for i := 0; i < 10; i++ {
-		fmt.Println(fibonacci(i))
+func main(){
+	f := fibonacci()
+	for i:=0; i<10; i++{
+		fmt.Println(
+			f(i),
+		)
 	}
 }
