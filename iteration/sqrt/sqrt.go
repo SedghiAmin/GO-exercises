@@ -8,25 +8,39 @@ import(
 const DELTA = 0.0000001
 const INITIAL_Z = 100.0
 
-func sqrt(x float64) (float64){
+type ErrNegativeSqrt float64
+
+func (e ErrNegativeSqrt) Error() string {
+	return fmt.Sprintf("cannot Sqrt negative number: %v", float64(e))
+}
+
+func Sqrt(x float64) (float64, error){
+
+	if x < 0 {
+		return 0 , ErrNegativeSqrt(x)
+	}
 
 	z := INITIAL_Z
 
-	step := z - ((z * z - x) / (2 * z))
-
-	for math.Abs(step - z) > DELTA{
+	for {
+		step := z - ((z * z - x) / (2 * z))
+		
+		if math.Abs(step - z) <= DELTA {
+			break
+		}
+		
 		z = step
-		step = z - ((z * z - x) / (2 * z))
 	}
 
-	return  z
+	return  z, nil
 }
 
 func main(){
 	
-	fmt.Println(
-		sqrt(9),
-		math.Sqrt(9),
-	)
+	fmt.Println("Sqrt(9):")
+	fmt.Println(Sqrt(9))
+	
+	fmt.Println("\nSqrt(-9):")
+	fmt.Println(Sqrt(-9))
 
 }
