@@ -24,20 +24,26 @@ func (l *List[T]) Add(node T) *List[T]{
 
 }
 
-func (l *List[T]) toSlice() []T{
-	var result []T
-	current:= l
+func (l *List[T]) toSlice() []T {
+	
+    if l == nil {
+        return nil
+    }
+    
+    var result []T
+    current := l
 
-	for(current.Next != nil){
-		result = append(result, current.Node)
-		current = current.Next
-	}
+    for current != nil {
+        result = append(result, current.Node)
+        current = current.Next
+    }
 
-	result = append(result, current.Node)
-
-	return result
+    return result
 }
+
 func main(){
+	/* var emptyList *List[int]
+    fmt.Println(emptyList.toSlice()) // [] or nil */
 
 	intList := &List[int]{Node: 10}
 	intList.Add(20)
