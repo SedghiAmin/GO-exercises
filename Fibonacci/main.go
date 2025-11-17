@@ -4,7 +4,7 @@ import(
 	"fmt"
 )
 
-func fibonacci() func(int) int{
+func Fibonacci() func(int,) int{
 
 	cache := map[int] int{
 		0 : 0,
@@ -12,11 +12,15 @@ func fibonacci() func(int) int{
 	}
 
 	var fibo func(int) int
+
 	fibo = func(x int) int{
+
 		if val , ok:= cache[x]; ok{
 			return val
 		}
+
 		cache[x] = fibo(x-1) + fibo(x-2)
+
 		return cache[x]
 	}
 
@@ -25,8 +29,11 @@ func fibonacci() func(int) int{
 }
 
 func main(){
-	f := fibonacci()
-	for i:=range 10{
+
+	f := Fibonacci()
+
+	for i:= range 10{
+
 		fmt.Println(
 			f(i),
 		)
