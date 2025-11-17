@@ -4,24 +4,37 @@ import(
 	"fmt"
 )
 
-func Fibonacci(n int , c chan int){
+func Fibonacci(c chan int, q chan int){
 	x, y:= 0, 1
 
-	for i:=0; i <= n; i++{
-		
-		c <- x
-		x , y = y, x + y
+	for{
+
+		select{
+
+		case c <- x:
+			x , y = y, x + y
+		case <-q:
+			fmt.Println("'quit'")
+			return
+
+		}
 	}
 
-	close(c)
 }
 
 func main(){
-	c:= make(chan int, 10)
+	c:= make(chan int)
+	quit:= make(chan int)
 
-	go Fibonacci(cap(c), c)
+	go func(){
 
-	for i:= range c{
-		fmt.Println(i)
-	}
+		for i:=0; i<=10; i++{
+			fmt.Println(<-c)
+		}
+		
+		quit <- 0
+	}()
+
+	Fibonacci(c, quit)
+	
 }
