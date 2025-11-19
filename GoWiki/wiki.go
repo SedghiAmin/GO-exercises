@@ -15,3 +15,12 @@ func (p *Page) Save() error{	// returns an error value because that is the retur
 	return os.WriteFile(filename, p.Body, 0600) //The octal integer literal 0600, passed as the third parameter to WriteFile, indicates that the file should be created with read-write permissions for the current user only.
 }
 
+func loadPage(title string) (*Page, error){
+	fileName:= title + ".txt"
+	body, err := os.ReadFile(fileName) //The standard library function os.ReadFile returns []byte and error.
+	if err != nil{
+		return nil, err
+	}
+	return &Page{title, body}, nil
+}
+
