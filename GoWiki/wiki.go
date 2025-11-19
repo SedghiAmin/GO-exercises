@@ -24,3 +24,10 @@ func loadPage(title string) (*Page, error){
 	return &Page{title, body}, nil
 }
 
+func main(){
+	p1:= &Page{Title: "test", Body: []byte("This is a test file.")}
+	p1.Save()
+
+	p2, _:= loadPage(p1.Title)
+	fmt.Println(string(p2.Body))
+}
