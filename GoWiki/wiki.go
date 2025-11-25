@@ -29,8 +29,8 @@ func loadPage(title string) (*Page, error) {
 func viewHandler(w http.ResponseWriter, r *http.Request) {
 	title := r.URL.Path[len("/view/"):]
 	p, err := loadPage(title)
-	if err != nil{
-		http.Redirect(w, r, "/edit/" + title, http.StatusFound)
+	if err != nil {
+		http.Redirect(w, r, "/edit/"+title, http.StatusFound)
 		return
 	}
 	renderTemplate(w, "view", p)
@@ -45,9 +45,17 @@ func editHandler(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "edit", p)
 }
 
+func saveHandler(w http.ResponseWriter, r *http.Request) {
+	title := r.URL.Path[len("/save/"):]
+	body := r.FormValue("body")
+	p := &Page{Title: title, Body: []byte(body)}
+	p.Save()
+	http.Redirect(w, r, "/view/"+title, http.StatusFound)
+}
+
 func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
-    t, _ := template.ParseFiles(tmpl + ".html")
-    t.Execute(w, p)
+	t, _ := template.ParseFiles(tmpl + ".html")
+	t.Execute(w, p)
 }
 
 func main() {
@@ -57,9 +65,10 @@ func main() {
 	/* p2, _ := loadPage(p1.Title)
 	fmt.Println(string(p2.Body)) */
 
-	http.HandleFunc("/view/", viewHandler) //With this web server running, a visit to http://localhost:8080/view/test should show a page titled "test" containing the words "Hello world".
+	http.HandleFunc("/view/", viewHandler)
 	http.HandleFunc("/edit/", editHandler)
+	http.HandleFunc("/save/", saveHandler)
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8080", nil)) //With this web server running, a visit to http://localhost:8080/view/test should show a page titled "test" containing the words "Hello world".
 
 }
