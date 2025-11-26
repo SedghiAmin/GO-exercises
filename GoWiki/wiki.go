@@ -5,10 +5,14 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"regexp"
+	"errors"
 )
 
 //The function template.Must is a convenience wrapper that panics when passed a non-nil error value, and otherwise returns the *Template unaltered. 
 var templates = template.Must(template.ParseFiles("view.html", "edit.html"))
+
+var validPath = regexp.MustCompile("^/(view|edit|save)/([a-zA-Z0-9]+)$")
 
 type Page struct {
 	Title string
@@ -18,6 +22,15 @@ type Page struct {
 func (p *Page) Save() error { // returns an error value because that is the return type of WriteFile
 	filename := p.Title + ".txt"
 	return os.WriteFile(filename, p.Body, 0600) //The octal integer literal 0600, passed as the third parameter to WriteFile, indicates that the file should be created with read-write permissions for the current user only.
+}
+
+func getTitle(w http.ResponseWriter, r *http.Request) (string, error){
+	m:= validPath.FindStringSubmatch(r.URL.Path)
+	if m == nil{
+		http.NotFound(w, r)
+		return "", errors.New("invalid page title")
+	}
+	return m[2], nil
 }
 
 func loadPage(title string) (*Page, error) {
@@ -32,7 +45,12 @@ func loadPage(title string) (*Page, error) {
 }
 
 func viewHandler(w http.ResponseWriter, r *http.Request) {
-	title := r.URL.Path[len("/view/"):]
+	title, err:= getTitle(w, r)
+
+	if err != nil{
+		return
+	}
+
 	p, err := loadPage(title)
 
 	if err != nil {
@@ -44,7 +62,12 @@ func viewHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func editHandler(w http.ResponseWriter, r *http.Request) {
-	title := r.URL.Path[len("/edit/"):]
+	title, err:= getTitle(w, r)
+	
+	if err != nil{
+		return
+	}
+
 	p, err := loadPage(title)
 
 	if err != nil {
@@ -55,12 +78,16 @@ func editHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func saveHandler(w http.ResponseWriter, r *http.Request) {
-	title := r.URL.Path[len("/save/"):]
+	title, err:= getTitle(w, r)
+	
+	if err != nil{
+		return
+	}
 	
 	body := r.FormValue("body")
 
 	p := &Page{Title: title, Body: []byte(body)}
-	err:= p.Save()
+	err = p.Save()
 
 	if err != nil{
 		http.Error(w, err.Error(), http.StatusInternalServerError )
