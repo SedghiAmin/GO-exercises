@@ -15,8 +15,8 @@ A simple wiki web application written in Go that allows users to view, edit, and
 2. Clone this repository
 3. Run the application:
 
-```go
-go run main.go
+```bash
+go run wiki.go
 ```
 
 # Usage
