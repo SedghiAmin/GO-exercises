@@ -9,7 +9,7 @@ import (
 )
 
 //The function template.Must is a convenience wrapper that panics when passed a non-nil error value, and otherwise returns the *Template unaltered. 
-var templates = template.Must(template.ParseFiles("tmpl/view.html", "tmpl/edit.html"))
+var templates = template.Must(template.ParseFiles("tmpl/view.html", "tmpl/edit.html", "tmpl/main.html"))
 
 var validPath = regexp.MustCompile("^/(view|edit|save)/([a-zA-Z0-9]+)$")
 
@@ -50,7 +50,7 @@ func makeHandler(fn func(http.ResponseWriter, *http.Request, string)) http.Handl
 			http.NotFound(w, r)
 			return 
 		}
-		
+
 		fn(w, r, m[2])
 	}
 }
@@ -93,6 +93,12 @@ func saveHandler(w http.ResponseWriter, r *http.Request, title string) {
 	http.Redirect(w, r, "/view/"+title, http.StatusFound)
 }
 
+func mainHandler(w http.ResponseWriter, r *http.Request){
+	
+	renderTemplate(w, "main", nil)
+   
+}
+
 func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
 
 	err := templates.ExecuteTemplate(w, tmpl + ".html", p)
@@ -110,6 +116,7 @@ func main() {
 	/* p2, _ := loadPage(p1.Title)
 	fmt.Println(string(p2.Body)) */
 
+	http.HandleFunc("/", mainHandler)
 	http.HandleFunc("/view/", makeHandler(viewHandler))
 	http.HandleFunc("/edit/", makeHandler(editHandler))
 	http.HandleFunc("/save/", makeHandler(saveHandler))
