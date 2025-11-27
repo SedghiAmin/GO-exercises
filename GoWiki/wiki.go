@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"os"
 	"regexp"
-	"errors"
 )
 
 //The function template.Must is a convenience wrapper that panics when passed a non-nil error value, and otherwise returns the *Template unaltered. 
@@ -24,15 +23,6 @@ func (p *Page) Save() error { // returns an error value because that is the retu
 	return os.WriteFile(filename, p.Body, 0600) //The octal integer literal 0600, passed as the third parameter to WriteFile, indicates that the file should be created with read-write permissions for the current user only.
 }
 
-func getTitle(w http.ResponseWriter, r *http.Request) (string, error){
-	m:= validPath.FindStringSubmatch(r.URL.Path)
-	if m == nil{
-		http.NotFound(w, r)
-		return "", errors.New("invalid page title")
-	}
-	return m[2], nil
-}
-
 func loadPage(title string) (*Page, error) {
 	fileName := title + ".txt"
 	body, err := os.ReadFile(fileName) //The standard library function os.ReadFile returns []byte and error.
@@ -44,12 +34,18 @@ func loadPage(title string) (*Page, error) {
 	return &Page{title, body}, nil
 }
 
-func viewHandler(w http.ResponseWriter, r *http.Request) {
-	title, err:= getTitle(w, r)
-
-	if err != nil{
-		return
+func makeHandler(fn func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc{
+	return func(w http.ResponseWriter, r *http.Request){
+		m:= validPath.FindStringSubmatch(r.URL.Path)
+		if m == nil{
+			http.NotFound(w, r)
+			return 
+		}
+		fn(w, r, m[2])
 	}
+}
+
+func viewHandler(w http.ResponseWriter, r *http.Request, title string) {
 
 	p, err := loadPage(title)
 
@@ -61,12 +57,7 @@ func viewHandler(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "view", p)
 }
 
-func editHandler(w http.ResponseWriter, r *http.Request) {
-	title, err:= getTitle(w, r)
-	
-	if err != nil{
-		return
-	}
+func editHandler(w http.ResponseWriter, r *http.Request, title string) {
 
 	p, err := loadPage(title)
 
@@ -77,17 +68,12 @@ func editHandler(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "edit", p)
 }
 
-func saveHandler(w http.ResponseWriter, r *http.Request) {
-	title, err:= getTitle(w, r)
-	
-	if err != nil{
-		return
-	}
+func saveHandler(w http.ResponseWriter, r *http.Request, title string) {
 	
 	body := r.FormValue("body")
 
 	p := &Page{Title: title, Body: []byte(body)}
-	err = p.Save()
+	err := p.Save()
 
 	if err != nil{
 		http.Error(w, err.Error(), http.StatusInternalServerError )
@@ -113,9 +99,9 @@ func main() {
 	/* p2, _ := loadPage(p1.Title)
 	fmt.Println(string(p2.Body)) */
 
-	http.HandleFunc("/view/", viewHandler)
-	http.HandleFunc("/edit/", editHandler)
-	http.HandleFunc("/save/", saveHandler)
+	http.HandleFunc("/view/", makeHandler(viewHandler))
+	http.HandleFunc("/edit/", makeHandler(editHandler))
+	http.HandleFunc("/save/", makeHandler(saveHandler))
 
 	log.Fatal(http.ListenAndServe(":8080", nil)) //With this web server running, a visit to http://localhost:8080/view/test should show a page titled "test" containing the words "Hello world".
 
