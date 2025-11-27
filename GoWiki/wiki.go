@@ -9,38 +9,48 @@ import (
 )
 
 //The function template.Must is a convenience wrapper that panics when passed a non-nil error value, and otherwise returns the *Template unaltered. 
-var templates = template.Must(template.ParseFiles("view.html", "edit.html"))
+var templates = template.Must(template.ParseFiles("tmpl/view.html", "tmpl/edit.html"))
 
 var validPath = regexp.MustCompile("^/(view|edit|save)/([a-zA-Z0-9]+)$")
 
 type Page struct {
+
 	Title string
 	Body  []byte // that is the type expected by the io libraries we will use
 }
 
 func (p *Page) Save() error { // returns an error value because that is the return type of WriteFile
-	filename := p.Title + ".txt"
+
+	filename := "data/" + p.Title + ".txt"
 	return os.WriteFile(filename, p.Body, 0600) //The octal integer literal 0600, passed as the third parameter to WriteFile, indicates that the file should be created with read-write permissions for the current user only.
 }
 
 func loadPage(title string) (*Page, error) {
-	fileName := title + ".txt"
+	
+	fileName := "data/" + title + ".txt"
+
 	body, err := os.ReadFile(fileName) //The standard library function os.ReadFile returns []byte and error.
 
 	if err != nil {
+
 		return nil, err
+
 	}
 
 	return &Page{title, body}, nil
 }
 
 func makeHandler(fn func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc{
+
 	return func(w http.ResponseWriter, r *http.Request){
+		
 		m:= validPath.FindStringSubmatch(r.URL.Path)
+
 		if m == nil{
 			http.NotFound(w, r)
 			return 
 		}
+		
 		fn(w, r, m[2])
 	}
 }
@@ -84,6 +94,7 @@ func saveHandler(w http.ResponseWriter, r *http.Request, title string) {
 }
 
 func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
+
 	err := templates.ExecuteTemplate(w, tmpl + ".html", p)
 
 	if err != nil{
