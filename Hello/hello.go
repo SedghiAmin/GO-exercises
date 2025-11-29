@@ -9,13 +9,13 @@ import (
 
 func main(){
 	
-	message, err:= greetings.Hello("")
+	message, err:= greetings.Hello("Amin")
 
 	if err != nil{
 		log.SetPrefix("greating: ")
 		log.SetFlags(0)
 		log.Fatal(err)
 	}
-	
+
 	fmt.Println(message)
 }
