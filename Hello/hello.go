@@ -8,8 +8,8 @@ import (
 )
 
 func main(){
-	
-	message, err:= greetings.Hello("Amin")
+	names:= []string{"Amin", "Ehsan", "Nilo"}
+	messages, err:= greetings.Hellos(names)
 
 	if err != nil{
 		log.SetPrefix("greating: ")
@@ -17,5 +17,5 @@ func main(){
 		log.Fatal(err)
 	}
 
-	fmt.Println(message)
+	fmt.Println(messages)
 }
