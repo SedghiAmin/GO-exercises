@@ -6,36 +6,36 @@ import (
 	"math/rand"
 )
 
-//Implement Hello function to return the greeting
-func Hello (name string) (string, error){
+// Implement Hello function to return the greeting
+func Hello(name string) (string, error) {
 
-	if name == ""{
+	if name == "" {
 		return "", errors.New("empty name")
 	}
 
-	msg:= fmt.Sprintf(randomGreeting(), name)
+	msg := fmt.Sprintf(randomGreeting(), name)
 
 	return msg, nil
 }
 
-func Hellos(names []string) (map[string]string, error){
-	messages:= make(map[string]string)
+func Hellos(names []string) (map[string]string, error) {
+	messages := make(map[string]string)
 
-	for _, name:= range names{
-		message, err:= Hello(name)
-		if err != nil{
-			return nil , err
+	for _, name := range names {
+		message, err := Hello(name)
+		if err != nil {
+			return nil, err
 		}
-		messages[name]:= message
+		messages[name] = message
 	}
-	return messages , nil
+	return messages, nil
 }
 
-func randomGreeting() string{
-	formats:= []string{
+func randomGreeting() string {
+	formats := []string{
 		"Hi, %v. Welcome to GO!",
-        "Great to see you, %v!",
-        "Hail, %v! Well met!",
+		"Great to see you, %v!",
+		"Hail, %v! Well met!",
 	}
 	return formats[rand.Intn(len(formats))]
 }
