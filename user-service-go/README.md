@@ -11,3 +11,4 @@ A user management service with Go, Gin, PostgreSQL and JWT.
 1. Copy settings:
    ```bash
    cp .env.example .env
+2.
