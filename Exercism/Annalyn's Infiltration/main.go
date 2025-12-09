@@ -42,12 +42,8 @@ func CanFreePrisoner(knightIsAwake, archerIsAwake, prisonerIsAwake, petDogIsPres
 }
 
 func main() {
-	var knightIsAwake = false
-	var archerIsAwake = true
-	var prisonerIsAwake = false
-	var petDogIsPresent = false
-	fmt.Printf("Can Spy: %v\n", CanSpy(knightIsAwake, archerIsAwake, prisonerIsAwake))
-	fmt.Printf("Can Fast Attack: %v\n", CanFastAttack(knightIsAwake))
-	fmt.Printf("Can Signal Prisoner: %v\n", CanSignalPrisoner(archerIsAwake, prisonerIsAwake))
-	fmt.Printf("Can Free Prisoner: %v\n", CanFreePrisoner(knightIsAwake, archerIsAwake, prisonerIsAwake, petDogIsPresent))
+	fmt.Printf("Can Spy: %v\n", CanSpy(false, true, false))
+	fmt.Printf("Can Fast Attack: %v\n", CanFastAttack(false))
+	fmt.Printf("Can Signal Prisoner: %v\n", CanSignalPrisoner(true, false))
+	fmt.Printf("Can Free Prisoner: %v\n", CanFreePrisoner(false, true, false, false))
 }
