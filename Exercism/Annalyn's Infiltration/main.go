@@ -20,10 +20,34 @@ func CanSpy(knightIsAwake, archerIsAwake, prisonerIsAwake bool) bool {
 	return false
 }
 
+// CanSignalPrisoner can be executed if the prisoner is awake and the archer is sleeping.
+func CanSignalPrisoner(archerIsAwake, prisonerIsAwake bool) bool {
+	if prisonerIsAwake && !archerIsAwake {
+
+		return true
+	}
+	return false
+}
+
+// CanFreePrisoner can be executed if the prisoner is awake and the other 2 characters are asleep
+// or if Annalyn's pet dog is with her and the archer is sleeping.
+func CanFreePrisoner(knightIsAwake, archerIsAwake, prisonerIsAwake, petDogIsPresent bool) bool {
+	if prisonerIsAwake && !knightIsAwake && !archerIsAwake {
+		return true
+	}
+	if !archerIsAwake && petDogIsPresent {
+		return true
+	}
+	return false
+}
+
 func main() {
 	var knightIsAwake = false
 	var archerIsAwake = true
 	var prisonerIsAwake = false
+	var petDogIsPresent = false
 	fmt.Printf("Can Spy: %v\n", CanSpy(knightIsAwake, archerIsAwake, prisonerIsAwake))
 	fmt.Printf("Can Fast Attack: %v\n", CanFastAttack(knightIsAwake))
+	fmt.Printf("Can Signal Prisoner: %v\n", CanSignalPrisoner(archerIsAwake, prisonerIsAwake))
+	fmt.Printf("Can Free Prisoner: %v\n", CanFreePrisoner(knightIsAwake, archerIsAwake, prisonerIsAwake, petDogIsPresent))
 }
