@@ -33,13 +33,8 @@ func IsAfternoonAppointment(date string) bool {
 func Description(date string) string {
 	layout := "1/2/2006 15:04:05"
 	t, _ := time.Parse(layout, date)
-	weekDay := t.Weekday()
-	month := t.Month()
-	day := t.Day()
-	year := t.Year()
-	hour := t.Hour()
-	minute := t.Minute()
-	return fmt.Sprintf("You have an appointment on %s, %s %v, %v, at %02d:%02d.", weekDay, month, day, year, hour, minute)
+	return fmt.Sprintf("You have an appointment on %s, at %s.",
+		t.Format("Monday, Januray 02, 2006"), t.Format("15:04"))
 }
 
 func main() {
