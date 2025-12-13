@@ -14,8 +14,8 @@ func ParseWithFormat(strDate, format string) (time.Time, error) {
 		"yyyy": "2006",
 		"yy":   "06",
 		"HH":   "15",
-		"MM":   "04",
-		"mm":   "01",
+		"MM":   "01",
+		"mm":   "04",
 		"dd":   "02",
 		"SS":   "05",
 	}
@@ -26,6 +26,6 @@ func ParseWithFormat(strDate, format string) (time.Time, error) {
 }
 
 func main() {
-	t, _ := ParseWithFormat("Tue, 09/22/1995, 13:00", "ddd, mm/dd/yyyy, HH:MM")
+	t, _ := ParseWithFormat("Tue, 09/22/1995, 13:00", "ddd, MM/dd/yyyy, HH:mm")
 	fmt.Println(t)
 }
