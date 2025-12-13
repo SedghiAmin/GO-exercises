@@ -40,7 +40,30 @@ func ParseCard(card string) int {
 	}
 }
 
+// FirstTurn returns the decision for the first turn, given two cards of the
+// player and one card of the dealer.
+func FirstTurn(card1, card2, dealerCard string) string {
+	switch {
+	case ParseCard(card1) == 11 && ParseCard(card2) == 11:
+		return "P"
+	case ParseCard(card1)+ParseCard(card2) == 21 && ParseCard(dealerCard) != 10 && ParseCard(dealerCard) != 11:
+		return "W"
+	case ParseCard(card1)+ParseCard(card2) >= 17:
+		return "S"
+	case ParseCard(card1)+ParseCard(card2) >= 12 && ParseCard(card1)+ParseCard(card2) <= 16 && ParseCard(dealerCard) >= 7:
+		return "H"
+	case ParseCard(card1)+ParseCard(card2) >= 12 && ParseCard(card1)+ParseCard(card2) <= 16 && ParseCard(dealerCard) < 7:
+		return "S"
+	case ParseCard(card1)+ParseCard(card2) < 12:
+		return "H"
+	default:
+		return "!!!!"
+	}
+
+}
+
 func main() {
-	value := ParseCard("ace")
-	fmt.Println(value)
+	fmt.Println(FirstTurn("ace", "ace", "jack"))
+	fmt.Println(FirstTurn("ace", "king", "ace"))
+	fmt.Println(FirstTurn("five", "queen", "ace"))
 }
