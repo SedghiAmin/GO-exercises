@@ -12,7 +12,14 @@ func Schedule(date string) time.Time {
 	return t
 }
 
+// HasPassed returns whether a date has passed.
+func HasPassed(date string) bool {
+	layout := "January 01, 2006 15:04:05"
+	t, _ := time.Parse(layout, date)
+	return time.Now().After(t)
+}
+
 func main() {
 	fmt.Println(Schedule("7/25/2019 13:45:00"))
-
+	fmt.Println(HasPassed("July 25, 2019 13:45:00"))
 }
