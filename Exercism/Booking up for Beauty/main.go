@@ -39,7 +39,7 @@ func Description(date string) string {
 	year := t.Year()
 	hour := t.Hour()
 	minute := t.Minute()
-	return fmt.Sprintf("You have an appointment on %v, %v %v, %v, at %v:%v.", weekDay, month, day, year, hour, minute)
+	return fmt.Sprintf("You have an appointment on %s, %s %v, %v, at %02d:%02d.", weekDay, month, day, year, hour, minute)
 }
 
 func main() {
