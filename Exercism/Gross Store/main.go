@@ -19,9 +19,25 @@ func NewBill() map[string]int {
 	return make(map[string]int)
 }
 
+// AddItem adds an item to customer bill.
+func AddItem(bill, units map[string]int, item, unit string) bool {
+	_, ok := units[unit]
+	if !ok {
+		return false
+	}
+
+	value, _ := bill[item]
+	bill[item] = value + units[unit]
+
+	return true
+}
+
 func main() {
 	units := Units()
 	fmt.Println(units)
 	bill := NewBill()
 	fmt.Println(bill)
+	ok := AddItem(bill, units, "carrot", "dozen")
+	fmt.Println(ok)
+	// Output: true (since dozen is a valid unit)
 }
