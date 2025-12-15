@@ -16,8 +16,7 @@ func Units() map[string]int {
 
 // NewBill creates a new bill.
 func NewBill() map[string]int {
-	bill := make(map[string]int)
-	return bill
+	return make(map[string]int)
 }
 
 func main() {
