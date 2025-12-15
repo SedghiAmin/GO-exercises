@@ -42,25 +42,40 @@ func RemoveItem(bill, units map[string]int, item, unit string) bool {
 	if !ok {
 		return false
 	}
-	bill[item] = value - units[unit]
-	if bill[item] < 0 {
-		bill[item] = value + units[unit]
+	newQty := value - units[unit]
+	if newQty < 0 {
 		return false
 	}
-	if bill[item] == 0 {
+	if newQty == 0 {
 		delete(bill, item)
 		return true
 	}
+	bill[item] = newQty
 	return true
 }
 
+// GetItem returns the quantity of an item that the customer has in his/her bill.
+func GetItem(bill map[string]int, item string) (int, bool) {
+	value, ok := bill[item]
+	if !ok {
+		return 0, false
+	}
+	return value, true
+}
+
 func main() {
-	units := Units()
+	/*units := Units()
 	fmt.Println(units)
 	bill := NewBill()
 	fmt.Println(bill)
 	ok := AddItem(bill, units, "carrot", "dozen")
 	fmt.Println(ok) // Output: true (since dozen is a valid unit)
 	ok = RemoveItem(bill, units, "carrot", "dozen")
-	fmt.Println(ok) // Output: true
+	fmt.Println(ok) // Output: true*/
+	bill := map[string]int{"carrot": 12, "grapes": 3}
+	qty, ok := GetItem(bill, "carrot")
+	fmt.Println(qty)
+	// Output: 12
+	fmt.Println(ok)
+	// Output: true
 }
