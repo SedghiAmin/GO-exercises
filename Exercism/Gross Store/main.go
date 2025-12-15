@@ -14,7 +14,15 @@ func Units() map[string]int {
 	}
 }
 
+// NewBill creates a new bill.
+func NewBill() map[string]int {
+	bill := make(map[string]int)
+	return bill
+}
+
 func main() {
 	units := Units()
 	fmt.Println(units)
+	bill := NewBill()
+	fmt.Println(bill)
 }
