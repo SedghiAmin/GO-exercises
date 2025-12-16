@@ -21,6 +21,10 @@ func Quantities(layers []string) (int, float64) {
 	return n * 50, float64(s) * 0.2
 }
 
+func AddSecretIngredient(friendList []string, myList []string) {
+	myList[len(myList)-1] = friendList[len(myList)-1]
+}
+
 func main() {
 	layers := []string{"sauce", "noodles", "sauce", "meat", "mozzarella", "noodles"}
 	fmt.Println(PreparationTime(layers, 3))
@@ -29,4 +33,9 @@ func main() {
 	// => 12
 	fmt.Println(Quantities(layers))
 	// => 100, 0.4
+	friendsList := []string{"noodles", "sauce", "mozzarella", "kampot pepper"}
+	myList := []string{"noodles", "meat", "sauce", "mozzarella"}
+	AddSecretIngredient(friendsList, myList)
+	fmt.Printf("%#v\n", myList)
+	// myList => []string{"noodles", "meat", "sauce", "mozzarella", "kampot pepper"})
 }
