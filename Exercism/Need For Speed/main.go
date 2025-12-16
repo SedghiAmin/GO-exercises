@@ -39,14 +39,24 @@ func Drive(car Car) Car {
 	}
 }
 
+// CanFinish checks if a car is able to finish a certain track.
+func CanFinish(car Car, track Track) bool {
+	if car.battery/car.batteryDrain*car.speed >= track.distance {
+		return true
+	}
+	return false
+}
+
 func main() {
 	speed := 5
 	batteryDrain := 2
 	car := NewCar(speed, batteryDrain)
 	fmt.Printf("%#v\n", car)
-	distance := 800
+	distance := 100
 	track := NewTrack(distance)
 	fmt.Printf("%#v\n", track)
 	car = Drive(car)
 	fmt.Printf("%#v\n", car)
+	fmt.Printf("%#v\n", CanFinish(car, track))
+	// => true
 }
