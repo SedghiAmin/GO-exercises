@@ -22,7 +22,7 @@ func Quantities(layers []string) (int, float64) {
 }
 
 func AddSecretIngredient(friendList []string, myList []string) {
-	myList[len(myList)-1] = friendList[len(myList)-1]
+	myList[len(myList)-1] = friendList[len(friendList)-1]
 }
 
 func ScaleRecipe(twoPortions []float64, portionsCount int) []float64 {
@@ -42,7 +42,7 @@ func main() {
 	fmt.Println(Quantities(layers))
 	// => 100, 0.4
 	friendsList := []string{"noodles", "sauce", "mozzarella", "kampot pepper"}
-	myList := []string{"noodles", "meat", "sauce", "mozzarella"}
+	myList := []string{"noodles", "meat", "sauce", "mozzarella", "?"}
 	AddSecretIngredient(friendsList, myList)
 	fmt.Printf("%#v\n", myList)
 	// myList => []string{"noodles", "meat", "sauce", "mozzarella", "kampot pepper"})
