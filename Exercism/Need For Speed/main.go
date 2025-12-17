@@ -50,11 +50,16 @@ func CanFinish(car Car, track Track) bool {
 	return false
 }
 
+func (car Car) DisplayDistance() string {
+	return fmt.Sprintf("Driven %d meters\n", car.distance)
+}
+
 func main() {
 	speed := 5
 	batteryDrain := 2
 	car := NewCar(speed, batteryDrain)
 	fmt.Printf("%#v\n", car)
+	fmt.Println(car.DisplayDistance())
 	distance := 100
 	track := NewTrack(distance)
 	fmt.Printf("%#v\n", track)
