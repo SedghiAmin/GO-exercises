@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func TotalBirdCount(birdsPerDay []int) int {
 	var sum int
 	for i := 0; i < len(birdsPerDay); i++ {
@@ -22,8 +24,18 @@ func BirdsInWeek(birdsPerDay []int, week int) int {
 	return sum
 }
 
+func FixBirdCountLog(birdsPerDay []int) []int {
+	fixed := birdsPerDay
+	for i := 0; i < len(birdsPerDay); i += 2 {
+		fixed[i] += 1
+	}
+	return fixed
+}
+
 func main() {
 	birdsPerDay := []int{2, 5, 0, 7, 4, 1, 3, 0, 2, 5, 0, 1, 3, 1}
 	println(TotalBirdCount(birdsPerDay))
 	println(BirdsInWeek(birdsPerDay, 2))
+	fmt.Printf("%#v", FixBirdCountLog(birdsPerDay))
+
 }
