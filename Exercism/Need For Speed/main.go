@@ -30,7 +30,7 @@ func NewTrack(distance int) Track {
 
 // Drive drives the car one time. If there is not enough battery to drive one more time,
 // the car will not move.
-func Drive(car Car) Car {
+func (car Car) Drive() Car {
 	if car.battery >= car.batteryDrain {
 		return Car{
 			battery:      car.battery - car.batteryDrain,
@@ -58,7 +58,7 @@ func main() {
 	distance := 100
 	track := NewTrack(distance)
 	fmt.Printf("%#v\n", track)
-	car = Drive(car)
+	car = car.Drive()
 	fmt.Printf("%#v\n", car)
 	fmt.Printf("%#v\n", CanFinish(car, track))
 	// => true
