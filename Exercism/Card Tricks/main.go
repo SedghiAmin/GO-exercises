@@ -26,8 +26,17 @@ func SetItem(slice []int, index, value int) []int {
 	return slice
 }
 
+// PrependItems adds an arbitrary number of values at the front of a slice.
+func PrependItems(slice []int, values ...int) []int {
+	for _, value := range values {
+		slice = append(slice, value)
+	}
+	return slice
+}
+
 func main() {
 	fmt.Printf("%#v\n", FavoriteCards())
 	fmt.Printf("%#v\n", GetItem([]int{1, 2, 4, 1}, 10))
 	fmt.Printf("%#v\n", SetItem([]int{1, 2, 4, 1}, -1, 6))
+	fmt.Printf("%#v\n", PrependItems([]int{3, 2, 6, 4, 8}, 5, 1))
 }
