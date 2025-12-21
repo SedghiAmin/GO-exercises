@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 // Application identifies the application emitting the given log.
 func Application(log string) string {
 	apps := map[rune]string{
@@ -13,4 +15,8 @@ func Application(log string) string {
 		}
 	}
 	return "default"
+}
+
+func main() {
+	fmt.Println(Application("❗ recommended search product 🔍"))
 }
