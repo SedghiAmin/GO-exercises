@@ -98,8 +98,8 @@ func main() {
 	// Output: This is a fancy box containing the number 10.0
 	fmt.Println(DescribeFancyNumberBox(AnotherFancyNumber{"4"}))
 	// Output: This is a fancy box containing the number 0.0
-	fmt.Println(DescribeAnything(numberBoxContaining{12.345}))
-	// Output: This is a box containing the number 12.3
+	fmt.Println(DescribeAnything(numberBoxContaining{12}))
+	// Output: This is a box containing the number 12
 	fmt.Println(DescribeAnything("some string"))
 	// Output: Return to sender
 }
