@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"unicode/utf8"
+)
 
 // Application identifies the application emitting the given log.
 func Application(log string) string {
@@ -32,7 +35,18 @@ func Replace(log string, oldRune, newRune rune) string {
 	return r
 }
 
+// WithinLimit determines whether or not the number of characters in log is
+// within the limit.
+func WithinLimit(log string, limit int) bool {
+	length := utf8.RuneCountInString(log)
+	if length <= limit {
+		return true
+	}
+	return false
+}
+
 func main() {
 	fmt.Println(Application("❗ recommended search product 🔍"))
 	fmt.Println(Replace("please replace '👎' with '👍'", '👎', '👍'))
+	fmt.Println(WithinLimit("hello❗", 6))
 }
