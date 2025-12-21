@@ -60,6 +60,17 @@ func ExtractFancyNumber(fnb FancyNumberBox) int {
 	return 0
 }
 
+func DescribeFancyNumberBox(fnb FancyNumberBox) string {
+	if val, ok := fnb.(FancyNumber); ok {
+		num, err := strconv.Atoi(val.Value())
+		if err != nil {
+			return "An Error occured while extracting number"
+		}
+		return fmt.Sprintf("This is a fancy box containing the number %.1f", float64(num))
+	}
+	return "This is a fancy box containing the number 0.0"
+}
+
 func main() {
 	fmt.Println(DescribeNumber(-12.345))
 	fmt.Println(DescribeNumberBox(numberBoxContaining{12}))
@@ -67,4 +78,8 @@ func main() {
 	// Output: 10
 	fmt.Println(ExtractFancyNumber(AnotherFancyNumber{"4"}))
 	// Output: 0
+	fmt.Println(DescribeFancyNumberBox(FancyNumber{"10"}))
+	// Output: This is a fancy box containing the number 10.0
+	fmt.Println(DescribeFancyNumberBox(AnotherFancyNumber{"4"}))
+	// Output: This is a fancy box containing the number 0.0
 }
