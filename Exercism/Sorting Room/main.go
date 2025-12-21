@@ -71,6 +71,22 @@ func DescribeFancyNumberBox(fnb FancyNumberBox) string {
 	return "This is a fancy box containing the number 0.0"
 }
 
+// DescribeAnything should return a string describing whatever it contains.
+func DescribeAnything(i any) string {
+	switch i.(type) {
+	case int:
+		return DescribeNumber(float64(i.(int)))
+	case float64:
+
+		return DescribeNumber(i.(float64))
+	case NumberBox:
+		return DescribeNumberBox(i.(NumberBox))
+	case FancyNumberBox:
+		return DescribeFancyNumberBox(i.(FancyNumberBox))
+	}
+	return "Return to sender"
+}
+
 func main() {
 	fmt.Println(DescribeNumber(-12.345))
 	fmt.Println(DescribeNumberBox(numberBoxContaining{12}))
@@ -82,4 +98,8 @@ func main() {
 	// Output: This is a fancy box containing the number 10.0
 	fmt.Println(DescribeFancyNumberBox(AnotherFancyNumber{"4"}))
 	// Output: This is a fancy box containing the number 0.0
+	fmt.Println(DescribeAnything(numberBoxContaining{12.345}))
+	// Output: This is a box containing the number 12.3
+	fmt.Println(DescribeAnything("some string"))
+	// Output: Return to sender
 }
