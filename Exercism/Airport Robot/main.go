@@ -10,20 +10,42 @@ type Greeter interface {
 func SayHello(name string, greeter Greeter) string {
 	language := greeter.LanguageName()
 	msg := greeter.Greet(name)
-	return fmt.Sprintf("I can speak %v: %v ", language, msg)
+	return fmt.Sprintf("I can speak %s: %s", language, msg)
 }
 
-type GermanGreeter string
+type German struct{}
 
-func (g GermanGreeter) LanguageName() string {
+func (g German) LanguageName() string {
 	return "German"
 }
 
-func (g GermanGreeter) Greet(msg string) string {
-	return "Hello " + msg + "!"
+func (g German) Greet(name string) string {
+	return "Hallo " + name + "!"
+}
+
+type Italian struct {
+}
+
+func (g Italian) LanguageName() string {
+	return "Italian"
+}
+
+func (g Italian) Greet(name string) string {
+	return "Ciao " + name + "!"
+}
+
+type Portuguese struct {
+}
+
+func (g Portuguese) LanguageName() string {
+	return "Portuguese"
+}
+func (g Portuguese) Greet(name string) string {
+
+	return "Olá " + name + "!"
 }
 
 func main() {
-	var germanGreeter GermanGreeter = ""
-	fmt.Println(SayHello("Dietrich", germanGreeter))
+	german := German{}
+	fmt.Println(SayHello("Dietrich", german))
 }
