@@ -49,6 +49,20 @@ func CountAll(cb Chessboard) int {
 	return count
 }
 
+// CountOccupied returns how many squares are occupied in the chessboard.
+func CountOccupied(cb Chessboard) int {
+	count := 0
+	for _, file := range cb {
+		for _, val := range file {
+			if val {
+				count++
+			}
+		}
+	}
+
+	return count
+}
+
 func main() {
 	cb := Chessboard{
 		"A": File{true, false, true, false, false, false, false, true},
@@ -65,4 +79,6 @@ func main() {
 	fmt.Println(CountInRank(cb, 0)) // Output: 0 (invalid rank)
 
 	fmt.Println(CountAll(cb)) // Output: 24
+
+	fmt.Println(CountOccupied(cb)) // Output: 4
 }
