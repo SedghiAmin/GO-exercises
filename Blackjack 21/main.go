@@ -6,64 +6,93 @@ import (
 	"time"
 )
 
-type GameSet struct {
-	rng             *rand.Rand
-	suits           []string
-	drawnCards      map[string]bool
-	cardsPerDeck    int
-	numberOfDecks   int
-	totalCards      int
-	reshuffleAt     int
-	numberOfPlayers int
+type Game struct {
+	rng            *rand.Rand
+	suits          []string
+	drawnCards     map[string]bool
+	cardsPerDeck   int
+	numberOfDecks  int
+	totalCards     int
+	reshuffleAt    int
+	reshuffleCount int
 }
 
-func NewGameSet(suits []string, drawnCards map[string]bool, cardsPerDeck int, numberOfDecks int, numberOfPlayers int) *GameSet {
+func NewGame(suits []string, drawnCards map[string]bool, cardsPerDeck int, numberOfDecks int) *Game {
 	source := rand.NewSource(time.Now().UnixNano())
-	rng := rand.New(source)
 
-	return &GameSet{
-		rng:             rng,
-		suits:           suits,
-		drawnCards:      drawnCards,
-		cardsPerDeck:    cardsPerDeck,
-		numberOfDecks:   numberOfDecks,
-		totalCards:      cardsPerDeck * numberOfDecks,
-		reshuffleAt:     cardsPerDeck * numberOfDecks * 80 / 100,
-		numberOfPlayers: numberOfPlayers,
+	return &Game{
+		rng:            rand.New(source),
+		suits:          suits,
+		drawnCards:     drawnCards,
+		cardsPerDeck:   cardsPerDeck,
+		numberOfDecks:  numberOfDecks,
+		totalCards:     cardsPerDeck * numberOfDecks,
+		reshuffleAt:    cardsPerDeck * numberOfDecks * 80 / 100,
+		reshuffleCount: 0,
 	}
 }
 
-func FetchCard(g *GameSet) string {
+func FetchCard(g *Game) string {
+	if len(g.drawnCards) >= g.reshuffleAt {
+		g.Reshuffle()
+	}
 	var fetch string = ""
 	for {
 		cardNum := g.rng.Intn(13) + 1 // 1-13
 		suitIndex := g.rng.Intn(4)    // 0-3
-		deck := g.rng.Intn(6) + 1
+		deck := g.rng.Intn(g.numberOfDecks) + 1
 
 		key := fmt.Sprintf("%d-%d-%s", deck, cardNum, g.suits[suitIndex])
 
 		if !g.drawnCards[key] {
 			g.drawnCards[key] = true
-			fetch = fmt.Sprintf("Deck %d: %s %d", deck, g.suits[suitIndex], cardNum)
+			fetch = fmt.Sprintf("Deck%d-%s%d,", deck, g.suits[suitIndex], cardNum)
 			break
 		}
 	}
 	return fetch
 }
 
+func (g *Game) Reshuffle() {
+	g.reshuffleCount++
+
+	source := rand.NewSource(time.Now().UnixNano())
+	rng := rand.New(source)
+
+	g.rng = rand.New(rng)
+
+	g.drawnCards = make(map[string]bool)
+
+}
+
 func main() {
 
 	cardsPerDeck := 52
-	numberOfDecks := 6
-	numberOfPlayers := 5
+	numberOfDecks := 1
+	maxOfPlayer := 50
+	numberOfPlayers := rand.Intn(maxOfPlayer) + 1
 
 	suits := []string{"Heart", "Diamond", "Spades", "Clubs"}
 	drawnCards := make(map[string]bool)
 
-	var gameSet = NewGameSet(suits, drawnCards, cardsPerDeck, numberOfDecks, numberOfPlayers)
+	var gameSet = NewGame(suits, drawnCards, cardsPerDeck, numberOfDecks)
 
-	fmt.Println("Random Cards: ")
-	for i := 0; i < cardsPerDeck*numberOfDecks; i++ {
-		fmt.Printf("%d: %s\n", i+1, FetchCard(gameSet))
+	i := 0
+	for {
+		if numberOfPlayers > 2 {
+			i++
+
+			fmt.Printf("Set %d - number of player(s): %d\nDelear Cards: %s * %s ** \n", i, numberOfPlayers-1, FetchCard(gameSet), FetchCard(gameSet))
+
+			for j := 1; j < numberOfPlayers; j++ {
+				fmt.Printf("   Player %d: %s * %s \n", j, FetchCard(gameSet), FetchCard(gameSet))
+			}
+			fmt.Printf("\n\n*********************************\n\n")
+		} else {
+			fmt.Println("No one any player ...")
+			fmt.Printf("Number of Reshuffle: %d\n", gameSet.reshuffleCount)
+			break
+		}
+		numberOfPlayers = rand.Intn(maxOfPlayer) + 1
 	}
 }
