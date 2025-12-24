@@ -6,10 +6,19 @@ import (
 	"time"
 )
 
+type Game struct {
+	rng           *rand.Rand
+	suits         []string
+	drawnCards    map[string]bool
+	cardsPerDeck  int
+	numberOfDecks int
+	totalCards    int
+	reshuffleAt   int
+}
+
 func FetchCard(rng *rand.Rand, suits []string, drawnCards map[string]bool) string {
-	l := true
 	var fetch string = ""
-	for l {
+	for {
 		cardNum := rng.Intn(13) + 1 // 1-13
 		suitIndex := rng.Intn(4)    // 0-3
 		deck := rng.Intn(6) + 1
@@ -19,7 +28,7 @@ func FetchCard(rng *rand.Rand, suits []string, drawnCards map[string]bool) strin
 		if !drawnCards[key] {
 			drawnCards[key] = true
 			fetch = fmt.Sprintf("Deck %d: %s %d", deck, suits[suitIndex], cardNum)
-			l = false
+			break
 		}
 	}
 	return fetch
