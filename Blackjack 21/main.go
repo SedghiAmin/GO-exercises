@@ -7,27 +7,29 @@ import (
 )
 
 type GameSet struct {
-	rng           *rand.Rand
-	suits         []string
-	drawnCards    map[string]bool
-	cardsPerDeck  int
-	numberOfDecks int
-	totalCards    int
-	reshuffleAt   int
+	rng             *rand.Rand
+	suits           []string
+	drawnCards      map[string]bool
+	cardsPerDeck    int
+	numberOfDecks   int
+	totalCards      int
+	reshuffleAt     int
+	numberOfPlayers int
 }
 
-func NewGameSet(suits []string, drawnCards map[string]bool, cardsPerDeck int, numberOfDecks int) *GameSet {
+func NewGameSet(suits []string, drawnCards map[string]bool, cardsPerDeck int, numberOfDecks int, numberOfPlayers int) *GameSet {
 	source := rand.NewSource(time.Now().UnixNano())
 	rng := rand.New(source)
 
 	return &GameSet{
-		rng:           rng,
-		suits:         suits,
-		drawnCards:    drawnCards,
-		cardsPerDeck:  cardsPerDeck,
-		numberOfDecks: numberOfDecks,
-		totalCards:    cardsPerDeck * numberOfDecks,
-		reshuffleAt:   cardsPerDeck * numberOfDecks * 80 / 100,
+		rng:             rng,
+		suits:           suits,
+		drawnCards:      drawnCards,
+		cardsPerDeck:    cardsPerDeck,
+		numberOfDecks:   numberOfDecks,
+		totalCards:      cardsPerDeck * numberOfDecks,
+		reshuffleAt:     cardsPerDeck * numberOfDecks * 80 / 100,
+		numberOfPlayers: numberOfPlayers,
 	}
 }
 
@@ -53,11 +55,12 @@ func main() {
 
 	cardsPerDeck := 52
 	numberOfDecks := 6
+	numberOfPlayers := 5
 
 	suits := []string{"Heart", "Diamond", "Spades", "Clubs"}
 	drawnCards := make(map[string]bool)
 
-	var gameSet = NewGameSet(suits, drawnCards, cardsPerDeck, numberOfDecks)
+	var gameSet = NewGameSet(suits, drawnCards, cardsPerDeck, numberOfDecks, numberOfPlayers)
 
 	fmt.Println("Random Cards: ")
 	for i := 0; i < cardsPerDeck*numberOfDecks; i++ {
