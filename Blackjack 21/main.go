@@ -7,7 +7,7 @@ import (
 )
 
 type Game struct {
-	rng            *rand.Rand
+	rnd            *rand.Rand
 	suits          []string
 	drawnCards     map[string]bool
 	cardsPerDeck   int
@@ -21,7 +21,7 @@ func NewGame(suits []string, cardsPerDeck int, numberOfDecks int) *Game {
 	source := rand.NewSource(time.Now().UnixNano())
 
 	return &Game{
-		rng:            rand.New(source),
+		rnd:            rand.New(source),
 		suits:          suits,
 		drawnCards:     make(map[string]bool),
 		cardsPerDeck:   cardsPerDeck,
@@ -38,9 +38,9 @@ func FetchCard(g *Game) string {
 	}
 	var fetch string = ""
 	for {
-		cardNum := g.rng.Intn(13) + 1 // 1-13
-		suitIndex := g.rng.Intn(4)    // 0-3
-		deck := g.rng.Intn(g.numberOfDecks) + 1
+		cardNum := g.rnd.Intn(13) + 1 // 1-13
+		suitIndex := g.rnd.Intn(4)    // 0-3
+		deck := g.rnd.Intn(g.numberOfDecks) + 1
 
 		key := fmt.Sprintf("%d-%d-%s", deck, cardNum, g.suits[suitIndex])
 
@@ -60,7 +60,7 @@ func (g *Game) Reshuffle() {
 
 	source := rand.NewSource(time.Now().UnixNano())
 
-	g.rng = rand.New(source)
+	g.rnd = rand.New(source)
 
 }
 
