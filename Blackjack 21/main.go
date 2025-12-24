@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-type Game struct {
+type GameSet struct {
 	rng           *rand.Rand
 	suits         []string
 	drawnCards    map[string]bool
@@ -14,6 +14,21 @@ type Game struct {
 	numberOfDecks int
 	totalCards    int
 	reshuffleAt   int
+}
+
+func NewGameSet(suits []string, drawnCards map[string]bool, cardsPerDeck int, numberOfDecks int) *GameSet {
+	source := rand.NewSource(time.Now().UnixNano())
+	rng := rand.New(source)
+
+	return &GameSet{
+		rng:           rng,
+		suits:         suits,
+		drawnCards:    drawnCards,
+		cardsPerDeck:  cardsPerDeck,
+		numberOfDecks: numberOfDecks,
+		totalCards:    cardsPerDeck * numberOfDecks,
+		reshuffleAt:   cardsPerDeck * numberOfDecks * 80 / 100,
+	}
 }
 
 func FetchCard(rng *rand.Rand, suits []string, drawnCards map[string]bool) string {
