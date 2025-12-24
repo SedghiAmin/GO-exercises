@@ -36,7 +36,7 @@ func FetchCard(g *Game) string {
 	if len(g.drawnCards) >= g.reshuffleAt {
 		g.Reshuffle()
 	}
-	var fetch string = ""
+	fetch := ""
 	for {
 		cardNum := g.rnd.Intn(13) + 1 // 1-13
 		suitIndex := g.rnd.Intn(4)    // 0-3
@@ -75,21 +75,22 @@ func main() {
 
 	var gameSet = NewGame(suits, cardsPerDeck, numberOfDecks)
 
-	i := 0
+	round := 0
 	for {
 		if numberOfPlayers > 2 {
-			i++
+			round++
 
-			fmt.Printf("Set %d - number of player(s): %d\nDelear Cards: %s ** %s \n", i, numberOfPlayers-1, FetchCard(gameSet), FetchCard(gameSet))
+			fmt.Printf("Set %d - number of player(s): %d\nDelear Cards: %s ** %s \n", round, numberOfPlayers-1, FetchCard(gameSet), FetchCard(gameSet))
 
 			for j := 1; j < numberOfPlayers; j++ {
 				fmt.Printf("   Player %d: %s ** %s \n", j, FetchCard(gameSet), FetchCard(gameSet))
 			}
 			fmt.Printf("\n\n*********************************\n\n")
+			time.Sleep(3 * time.Second)
 		} else {
 			fmt.Println("There are no player(s) ... !!")
 			fmt.Printf("Number of Reshuffle: %d\n", gameSet.reshuffleCount)
-			fmt.Printf("Number of Set(s): %d", i)
+			fmt.Printf("Number of Set(s): %d", round)
 			fmt.Printf("\n\n*********************************\n\n")
 			break
 		}
