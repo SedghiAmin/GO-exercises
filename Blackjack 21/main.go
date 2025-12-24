@@ -17,13 +17,13 @@ type Game struct {
 	reshuffleCount int
 }
 
-func NewGame(suits []string, drawnCards map[string]bool, cardsPerDeck int, numberOfDecks int) *Game {
+func NewGame(suits []string, cardsPerDeck int, numberOfDecks int) *Game {
 	source := rand.NewSource(time.Now().UnixNano())
 
 	return &Game{
 		rng:            rand.New(source),
 		suits:          suits,
-		drawnCards:     drawnCards,
+		drawnCards:     make(map[string]bool),
 		cardsPerDeck:   cardsPerDeck,
 		numberOfDecks:  numberOfDecks,
 		totalCards:     cardsPerDeck * numberOfDecks,
@@ -56,12 +56,11 @@ func FetchCard(g *Game) string {
 func (g *Game) Reshuffle() {
 	g.reshuffleCount++
 
-	source := rand.NewSource(time.Now().UnixNano())
-	rng := rand.New(source)
-
-	g.rng = rand.New(rng)
-
 	g.drawnCards = make(map[string]bool)
+
+	source := rand.NewSource(time.Now().UnixNano())
+
+	g.rng = rand.New(source)
 
 }
 
@@ -69,28 +68,29 @@ func main() {
 
 	cardsPerDeck := 52
 	numberOfDecks := 1
-	maxOfPlayer := 50
+	maxOfPlayer := 5
 	numberOfPlayers := rand.Intn(maxOfPlayer) + 1
 
 	suits := []string{"Heart", "Diamond", "Spades", "Clubs"}
-	drawnCards := make(map[string]bool)
 
-	var gameSet = NewGame(suits, drawnCards, cardsPerDeck, numberOfDecks)
+	var gameSet = NewGame(suits, cardsPerDeck, numberOfDecks)
 
 	i := 0
 	for {
 		if numberOfPlayers > 2 {
 			i++
 
-			fmt.Printf("Set %d - number of player(s): %d\nDelear Cards: %s * %s ** \n", i, numberOfPlayers-1, FetchCard(gameSet), FetchCard(gameSet))
+			fmt.Printf("Set %d - number of player(s): %d\nDelear Cards: %s ** %s \n", i, numberOfPlayers-1, FetchCard(gameSet), FetchCard(gameSet))
 
 			for j := 1; j < numberOfPlayers; j++ {
-				fmt.Printf("   Player %d: %s * %s \n", j, FetchCard(gameSet), FetchCard(gameSet))
+				fmt.Printf("   Player %d: %s ** %s \n", j, FetchCard(gameSet), FetchCard(gameSet))
 			}
 			fmt.Printf("\n\n*********************************\n\n")
 		} else {
-			fmt.Println("No one any player ...")
+			fmt.Println("There are no player(s) ... !!")
 			fmt.Printf("Number of Reshuffle: %d\n", gameSet.reshuffleCount)
+			fmt.Printf("Number of Set(s): %d", i)
+			fmt.Printf("\n\n*********************************\n\n")
 			break
 		}
 		numberOfPlayers = rand.Intn(maxOfPlayer) + 1
