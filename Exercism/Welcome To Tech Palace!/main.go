@@ -9,3 +9,8 @@ import (
 func WelcomeMessage(customer string) string {
 	return " Welcome to the Tech Palace, " + strings.ToUpper(customer)
 }
+
+func main() {
+	fmt.Println(WelcomeMessage("Judy"))
+	// => Welcome to the Tech Palace, JUDY
+}
