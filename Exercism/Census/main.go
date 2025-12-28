@@ -14,6 +14,15 @@ func NewResident(name string, age int, address map[string]string) *Resident {
 	return &Resident{name, age, address}
 }
 
+// HasRequiredInfo determines if a given resident has all of the required information.
+func (r *Resident) HasRequiredInfo() bool {
+	switch {
+	case r.Name == "" || r.Address == nil:
+		return false
+	}
+	return true
+}
+
 func main() {
 	name := "Matthew Sanabria"
 	age := 29
@@ -21,4 +30,5 @@ func main() {
 
 	fmt.Println(NewResident(name, age, address))
 	// => &{Matthew Sanabria 29 map[street:Main St.]}
+
 }
