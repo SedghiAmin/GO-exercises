@@ -17,10 +17,17 @@ func NewResident(name string, age int, address map[string]string) *Resident {
 // HasRequiredInfo determines if a given resident has all of the required information.
 func (r *Resident) HasRequiredInfo() bool {
 	switch {
-	case r.Name == "" || r.Address == nil:
+	case r.Name == "" || r.Address["street"] == "":
 		return false
 	}
 	return true
+}
+
+// Delete deletes a resident's information.
+func (r *Resident) Delete() {
+	r.Name = ""
+	r.Age = 0
+	r.Address = nil
 }
 
 func main() {
@@ -34,4 +41,5 @@ func main() {
 	r := Resident{"", age, address}
 	fmt.Println(r.HasRequiredInfo())
 	// => false
+
 }
