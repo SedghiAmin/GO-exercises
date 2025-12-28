@@ -30,19 +30,32 @@ func (r *Resident) Delete() {
 	r.Address = nil
 }
 
+// Count counts all residents that have provided the required information.
+func Count(residents []*Resident) int {
+	sum := 0
+	for _, resident := range residents {
+		if resident.HasRequiredInfo() {
+			sum += 1
+		}
+	}
+	return sum
+}
+
 func main() {
 	name := "Matthew Sanabria"
 	age := 29
 	address := map[string]string{"street": "Main St."}
 
-	fmt.Println(NewResident(name, age, address))
+	resident1 := NewResident(name, age, address)
+	fmt.Println(resident1)
 	// => &{Matthew Sanabria 29 map[street:Main St.]}
 
-	r := Resident{"", age, address}
+	/*r := Resident{"", age, address}
 	fmt.Println(r.HasRequiredInfo())
-	// => false
+	// => false*/
 
-	r.Delete()
+	/*r.Delete()
 	fmt.Println(r)
-	// Output: &{ 0 map[]}
+	// Output: &{ 0 map[]}*/
+
 }
