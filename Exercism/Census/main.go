@@ -42,4 +42,7 @@ func main() {
 	fmt.Println(r.HasRequiredInfo())
 	// => false
 
+	r.Delete()
+	fmt.Println(r)
+	// Output: &{ 0 map[]}
 }
