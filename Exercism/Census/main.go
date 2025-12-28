@@ -31,4 +31,7 @@ func main() {
 	fmt.Println(NewResident(name, age, address))
 	// => &{Matthew Sanabria 29 map[street:Main St.]}
 
+	r := Resident{"", age, address}
+	fmt.Println(r.HasRequiredInfo())
+	// => false
 }
