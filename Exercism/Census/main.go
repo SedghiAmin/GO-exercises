@@ -58,4 +58,13 @@ func main() {
 	fmt.Println(r)
 	// Output: &{ 0 map[]}*/
 
+	name = "Rob Pike"
+	age = 0
+	address = make(map[string]string)
+
+	resident2 := NewResident(name, age, address)
+
+	residents := []*Resident{resident1, resident2}
+	fmt.Println(Count(residents))
+
 }
