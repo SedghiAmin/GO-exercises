@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 // InterestRate returns the interest rate for the provided balance.
 func InterestRate(balance float64) float32 {
 	switch {
@@ -11,4 +13,9 @@ func InterestRate(balance float64) float32 {
 		return 2.475
 	}
 	return 3.213
+}
+
+func main() {
+	fmt.Println(InterestRate(200.75))
+	// => 0.5
 }
