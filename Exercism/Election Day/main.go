@@ -83,4 +83,14 @@ func main() {
 	fmt.Println(DisplayResult(result))
 	// => John (32)
 
+	var finalResults = map[string]int{
+		"Mary": 10,
+		"John": 51,
+	}
+
+	DecrementVotesOfCandidate(finalResults, "Mary")
+
+	fmt.Println(finalResults["Mary"])
+	// => 9
+
 }
