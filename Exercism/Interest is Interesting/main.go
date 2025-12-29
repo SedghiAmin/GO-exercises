@@ -24,4 +24,6 @@ func main() {
 	fmt.Println(InterestRate(200.75))
 	// => 0.5
 
+	fmt.Println(Interest(200.75))
+	// => 1.003750)
 }
