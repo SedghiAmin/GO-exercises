@@ -58,4 +58,9 @@ func main() {
 	fmt.Println(votes == 5)        // true
 	fmt.Println(*voteCounter == 5) // true
 
+	var result *ElectionResult
+	result = NewElectionResult("Peter", 3)
+
+	fmt.Println(result.Name == "Peter") // true
+	fmt.Println(result.Votes == 3)      // true
 }
