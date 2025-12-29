@@ -42,4 +42,8 @@ func main() {
 	fmt.Println(VoteCount(nilVoteCounter))
 	// => 0
 
+	IncrementVoteCount(voteCounter, 2)
+
+	fmt.Println(votes == 5)        // true
+	fmt.Println(*voteCounter == 5) // true
 }
