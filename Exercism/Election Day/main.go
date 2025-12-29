@@ -21,6 +21,17 @@ func IncrementVoteCount(counter *int, increment int) {
 	*counter += increment
 }
 
+type ElectionResult struct {
+	Name  string
+	Votes int
+}
+
+// NewElectionResult creates a new election result.
+func NewElectionResult(candidateName string, votes int) *ElectionResult {
+	return &ElectionResult{Name: candidateName, Votes: votes}
+
+}
+
 func main() {
 	var initialVotes int
 	initialVotes = 2
@@ -46,4 +57,5 @@ func main() {
 
 	fmt.Println(votes == 5)        // true
 	fmt.Println(*voteCounter == 5) // true
+
 }
