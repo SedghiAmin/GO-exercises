@@ -15,7 +15,13 @@ func InterestRate(balance float64) float32 {
 	return 3.213
 }
 
+// Interest calculates the interest for the provided balance.
+func Interest(balance float64) float64 {
+	return float64(InterestRate(balance)) / 100 * balance
+}
+
 func main() {
 	fmt.Println(InterestRate(200.75))
 	// => 0.5
+
 }
