@@ -53,4 +53,8 @@ func main() {
 	fmt.Println(AnnualBalanceUpdate(200.75))
 	// => 201.75375
 
+	balance := 200.75
+	targetBalance := 214.88
+	fmt.Println(YearsBeforeDesiredBalance(balance, targetBalance))
+	// => 14
 }
