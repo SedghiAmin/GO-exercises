@@ -20,10 +20,16 @@ func Interest(balance float64) float64 {
 	return float64(InterestRate(balance)) / 100 * balance
 }
 
+// AnnualBalanceUpdate calculates the annual balance update, taking into account the interest rate.
+func AnnualBalanceUpdate(balance float64) float64 {
+	return balance + Interest(balance)
+}
+
 func main() {
 	fmt.Println(InterestRate(200.75))
 	// => 0.5
 
 	fmt.Println(Interest(200.75))
 	// => 1.003750)
+
 }
