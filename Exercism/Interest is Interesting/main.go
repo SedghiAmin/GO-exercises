@@ -32,4 +32,6 @@ func main() {
 	fmt.Println(Interest(200.75))
 	// => 1.003750)
 
+	fmt.Println(AnnualBalanceUpdate(200.75))
+	// => 201.75375
 }
