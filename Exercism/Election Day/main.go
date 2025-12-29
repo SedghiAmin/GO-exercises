@@ -16,6 +16,11 @@ func VoteCount(counter *int) int {
 	return *counter
 }
 
+// IncrementVoteCount increments the value in a vote counter.
+func IncrementVoteCount(counter *int, increment int) {
+	*counter += increment
+}
+
 func main() {
 	var initialVotes int
 	initialVotes = 2
@@ -36,4 +41,5 @@ func main() {
 	var nilVoteCounter *int
 	fmt.Println(VoteCount(nilVoteCounter))
 	// => 0
+
 }
