@@ -32,6 +32,11 @@ func NewElectionResult(candidateName string, votes int) *ElectionResult {
 
 }
 
+// DisplayResult creates a message with the result to be displayed.
+func DisplayResult(result *ElectionResult) string {
+	return fmt.Sprintf("%s (%v)", result.Name, result.Votes)
+}
+
 func main() {
 	var initialVotes int
 	initialVotes = 2
@@ -63,4 +68,5 @@ func main() {
 
 	fmt.Println(result.Name == "Peter") // true
 	fmt.Println(result.Votes == 3)      // true
+
 }
