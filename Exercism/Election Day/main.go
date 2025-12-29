@@ -37,6 +37,11 @@ func DisplayResult(result *ElectionResult) string {
 	return fmt.Sprintf("%s (%v)", result.Name, result.Votes)
 }
 
+// DecrementVotesOfCandidate decrements by one the vote count of a candidate in a map.
+func DecrementVotesOfCandidate(results map[string]int, candidate string) {
+	results[candidate] -= 1
+}
+
 func main() {
 	var initialVotes int
 	initialVotes = 2
