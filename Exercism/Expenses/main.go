@@ -77,4 +77,13 @@ func main() {
 	fmt.Println("")
 	fmt.Printf("%+v", Filter(records, ByCategory("groceries")))
 
+	p1 := DaysPeriod{From: 1, To: 15}
+	p2 := DaysPeriod{From: 16, To: 30}
+
+	fmt.Println("")
+	fmt.Printf("%+v", TotalByPeriod(records, p1))
+	// => 16
+	fmt.Println("")
+	fmt.Printf("%+v", TotalByPeriod(records, p2))
+	// => 50
 }
