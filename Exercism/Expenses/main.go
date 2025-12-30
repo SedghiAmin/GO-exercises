@@ -30,3 +30,13 @@ func Filter(in []Record, predicate func(Record) bool) []Record {
 	}
 	return out
 }
+
+func main() {
+	records := []Record{
+		{Day: 1, Amount: 15, Category: "groceries"},
+		{Day: 11, Amount: 300, Category: "utility-bills"},
+		{Day: 12, Amount: 28, Category: "groceries"},
+	}
+
+	fmt.Printf("%+v", Filter(records, Day1Records))
+}
