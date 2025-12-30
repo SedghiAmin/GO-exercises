@@ -38,6 +38,18 @@ func ByDaysPeriod(p DaysPeriod) func(Record) bool {
 	}
 }
 
+// ByCategory returns predicate function that returns true when
+// the category of the record is the same as the provided category
+// and false otherwise.
+func ByCategory(c string) func(Record) bool {
+	return func(r Record) bool {
+		if r.Category == c {
+			return true
+		}
+		return false
+	}
+}
+
 func main() {
 	records := []Record{
 		{Day: 1, Amount: 15, Category: "groceries"},
@@ -50,4 +62,5 @@ func main() {
 	period := DaysPeriod{From: 1, To: 15}
 
 	fmt.Printf("%+v", Filter(records, ByDaysPeriod(period)))
+
 }
