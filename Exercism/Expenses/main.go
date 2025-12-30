@@ -62,5 +62,6 @@ func main() {
 	period := DaysPeriod{From: 1, To: 15}
 
 	fmt.Printf("%+v", Filter(records, ByDaysPeriod(period)))
-
+	fmt.Println("")
+	fmt.Printf("%+v", Filter(records, ByCategory("groceries")))
 }
