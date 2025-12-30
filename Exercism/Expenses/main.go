@@ -50,6 +50,18 @@ func ByCategory(c string) func(Record) bool {
 	}
 }
 
+// TotalByPeriod returns total amount of expenses for records
+// inside the period p.
+func TotalByPeriod(in []Record, p DaysPeriod) float64 {
+	total := 0.0
+	for _, record := range in {
+		if record.Day >= p.From && record.Day <= p.To {
+			total += record.Amount
+		}
+	}
+	return total
+}
+
 func main() {
 	records := []Record{
 		{Day: 1, Amount: 15, Category: "groceries"},
@@ -64,4 +76,5 @@ func main() {
 	fmt.Printf("%+v", Filter(records, ByDaysPeriod(period)))
 	fmt.Println("")
 	fmt.Printf("%+v", Filter(records, ByCategory("groceries")))
+
 }
