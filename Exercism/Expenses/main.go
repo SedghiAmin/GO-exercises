@@ -62,6 +62,18 @@ func TotalByPeriod(in []Record, p DaysPeriod) float64 {
 	return total
 }
 
+// CategoryExpenses returns total amount of expenses for records
+// in category c that are also inside the period p.
+// An error must be returned only if there are no records in the list that belong
+// to the given category, regardless of period of time.
+func CategoryExpenses(in []Record, p DaysPeriod, c string) (float64, error) {
+	categoryExpense := Filter(in, ByCategory(c))
+	if len(categoryExpense) > 0 {
+		return TotalByPeriod(categoryExpense, p), nil
+	}
+	return 0.0, fmt.Errorf("error(unknown category entertainment)")
+}
+
 func main() {
 	records := []Record{
 		{Day: 1, Amount: 15, Category: "groceries"},
@@ -77,8 +89,8 @@ func main() {
 	fmt.Println("")
 	fmt.Printf("%+v", Filter(records, ByCategory("groceries")))
 
-	p1 := DaysPeriod{From: 1, To: 15}
-	p2 := DaysPeriod{From: 16, To: 30}
+	p1 := DaysPeriod{From: 1, To: 30}
+	p2 := DaysPeriod{From: 31, To: 60}
 
 	fmt.Println("")
 	fmt.Printf("%+v", TotalByPeriod(records, p1))
@@ -86,4 +98,20 @@ func main() {
 	fmt.Println("")
 	fmt.Printf("%+v", TotalByPeriod(records, p2))
 	// => 50
+
+	fmt.Println("")
+	v, e := CategoryExpenses(records, p1, "entertainment")
+	fmt.Println("")
+	fmt.Printf("%.f %v", v, e)
+	// => 0, error(unknown category entertainment)
+
+	v, e = CategoryExpenses(records, p1, "rent")
+	fmt.Println("")
+	fmt.Printf("%.f %v", v, e)
+	// => 1300, nil
+
+	v, e = CategoryExpenses(records, p2, "rent")
+	fmt.Println("")
+	fmt.Printf("%.f %v", v, e)
+	// => 0, nil
 }
