@@ -15,7 +15,19 @@ func SplitLogLine(text string) []string {
 	return re.Split(text, -1)
 }
 
+func CountQuotedPasswords(lines []string) int {
+	re := regexp.MustCompile(`(?i)"[^"]*?password[^"]*?"`)
+	count := 0
+	for _, line := range lines {
+		if re.MatchString(line) {
+			count++
+		}
+	}
+	return count
+}
+
 func main() {
 	fmt.Println(IsValidLine("[ERR] A good error here"))
-	fmt.Printf("%#v", SplitLogLine("section 1<*>section 2<~~~>section 3"))
+	fmt.Printf("%#v\n", SplitLogLine("section 1<*>section 2<~~~>section 3"))
+
 }
