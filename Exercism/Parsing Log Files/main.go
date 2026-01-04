@@ -11,7 +11,7 @@ func IsValidLine(text string) bool {
 }
 
 func SplitLogLine(text string) []string {
-	re := regexp.MustCompile(`<.*?>`)
+	re := regexp.MustCompile(`<[*-=~]*>`)
 	return re.Split(text, -1)
 }
 
