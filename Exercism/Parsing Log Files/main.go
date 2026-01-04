@@ -17,4 +17,5 @@ func SplitLogLine(text string) []string {
 
 func main() {
 	fmt.Println(IsValidLine("[ERR] A good error here"))
+	fmt.Printf("%#v", SplitLogLine("section 1<*>section 2<~~~>section 3"))
 }
