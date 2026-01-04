@@ -30,4 +30,12 @@ func main() {
 	fmt.Println(IsValidLine("[ERR] A good error here"))
 	fmt.Printf("%#v\n", SplitLogLine("section 1<*>section 2<~~~>section 3"))
 
+	lines := []string{
+		`[INF] passWord`, // contains 'password' but not surrounded by quotation marks
+		`"passWord"`,     // count this one
+		`[INF] User saw error message "Unexpected Error" on page load.`,          // does not contain 'password'
+		`[INF] The message "Please reset your password" was ignored by the user`, // count this one
+	}
+	fmt.Println(CountQuotedPasswords(lines)) // => 2
+
 }
