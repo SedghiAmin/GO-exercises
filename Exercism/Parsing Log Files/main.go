@@ -10,6 +10,11 @@ func IsValidLine(text string) bool {
 	return re.MatchString(text)
 }
 
+func SplitLogLine(text string) []string {
+	re := regexp.MustCompile(`<.*?>`)
+	return re.Split(text, -1)
+}
+
 func main() {
 	fmt.Println(IsValidLine("[ERR] A good error here"))
 }
