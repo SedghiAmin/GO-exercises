@@ -26,6 +26,11 @@ func CountQuotedPasswords(lines []string) int {
 	return count
 }
 
+func RemoveEndOfLineText(text string) string {
+	re := regexp.MustCompile(`end-of-line\d+`)
+	return re.ReplaceAllString(text, "")
+}
+
 func main() {
 	fmt.Println(IsValidLine("[ERR] A good error here"))
 	fmt.Printf("%#v\n", SplitLogLine("section 1<*>section 2<~~~>section 3"))
@@ -38,4 +43,5 @@ func main() {
 	}
 	fmt.Println(CountQuotedPasswords(lines)) // => 2
 
+	fmt.Println(RemoveEndOfLineText("[INF] end-of-line23033 Network Failure end-of-line27"))
 }
