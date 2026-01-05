@@ -60,4 +60,11 @@ func main() {
 
 	fmt.Println(RemoveEndOfLineText("[INF] end-of-line23033 Network Failure end-of-line27"))
 
+	lines = []string{
+		"[WRN] User James123 has exceeded storage space.",
+		"[WRN] Host down. User   Michelle4 lost connection.",
+		"[INF] Users can login again after 23:00.",
+		"[DBG] We need to check that user names are at least 6 chars long.",
+	}
+	fmt.Printf("%#v\n", TagWithUserName(lines))
 }
