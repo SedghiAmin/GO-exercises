@@ -61,3 +61,33 @@ type MeteorologyData struct {
 func (m MeteorologyData) String() string {
 	return fmt.Sprintf("%s: %d %s, Wind %s at %d %s, %d%% Humidity", m.location, m.temperature.degree, m.temperature.unit, m.windDirection, m.windSpeed.magnitude, m.windSpeed.unit, m.humidity)
 }
+
+func main() {
+	// تست ۱: Athens
+	athensData := MeteorologyData{
+		location:      "Athens",
+		temperature:   Temperature{21, Celsius},
+		windDirection: "N",
+		windSpeed:     Speed{16, KmPerHour},
+		humidity:      63,
+	}
+
+	result := athensData.String()
+	expected := "Athens: 21 °C, Wind N at 16 km/h, 63% Humidity"
+
+	fmt.Printf("Result:   %q\n", result)
+	fmt.Printf("Expected: %q\n", expected)
+	fmt.Printf("Match:    %v\n", result == expected)
+
+	// تست ۲: San Francisco
+	sfData := MeteorologyData{
+		location:      "San Francisco",
+		temperature:   Temperature{57, Fahrenheit},
+		windDirection: "NW",
+		windSpeed:     Speed{19, MilesPerHour},
+		humidity:      60,
+	}
+
+	fmt.Println("\nSan Francisco test:")
+	fmt.Println(sfData.String())
+}
