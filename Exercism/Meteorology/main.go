@@ -63,7 +63,7 @@ func (m MeteorologyData) String() string {
 }
 
 func main() {
-	// تست ۱: Athens
+	// Test 1: Athens
 	athensData := MeteorologyData{
 		location:      "Athens",
 		temperature:   Temperature{21, Celsius},
@@ -79,7 +79,7 @@ func main() {
 	fmt.Printf("Expected: %q\n", expected)
 	fmt.Printf("Match:    %v\n", result == expected)
 
-	// تست ۲: San Francisco
+	// Test 2: San Francisco
 	sfData := MeteorologyData{
 		location:      "San Francisco",
 		temperature:   Temperature{57, Fahrenheit},
