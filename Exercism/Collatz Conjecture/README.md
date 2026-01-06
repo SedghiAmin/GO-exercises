@@ -12,13 +12,6 @@ The Collatz Conjecture is a mathematical conjecture that states: for any positiv
 
 The conjecture is that no matter what positive integer you start with, you will always eventually reach 1.
 
-## Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/collatz-go.git
-cd collatz-go
-```
 
 ## Usage
 
