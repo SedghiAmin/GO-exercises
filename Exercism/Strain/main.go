@@ -11,3 +11,13 @@ func Keep[T any](arr []T, f func(T) bool) []T {
 
 	return r
 }
+
+func Discard[T any](arr []T, f func(T) bool) []T {
+
+	for _, v := range arr {
+		if !f(v) {
+			r = append(r, v)
+		}
+	}
+	return r
+}
