@@ -1,4 +1,4 @@
-// cmd/main.go
+// cmd/main.go.go
 package main
 
 import (

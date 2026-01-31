@@ -8,19 +8,19 @@ func main() {
 	var height float32
 
 	fmt.Print("Enter your name: ")
-	_, err := fmt.Scanln(&name)
+	_, err := fmt.Scan(&name)
 	if err != nil {
 		return
 	}
 
 	fmt.Print("Enter your age: ")
-	_, err = fmt.Scanln(&age)
+	_, err = fmt.Scan(&age)
 	if err != nil {
 		return
 	}
 
 	fmt.Print("Enter your height: ")
-	_, err = fmt.Scanln(&height)
+	_, err = fmt.Scan(&height)
 	if err != nil {
 		return
 	}

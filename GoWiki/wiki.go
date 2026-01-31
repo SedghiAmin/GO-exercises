@@ -8,13 +8,12 @@ import (
 	"regexp"
 )
 
-//The function template.Must is a convenience wrapper that panics when passed a non-nil error value, and otherwise returns the *Template unaltered. 
-var templates = template.Must(template.ParseFiles("tmpl/view.html", "tmpl/edit.html", "tmpl/main.html"))
+// The function template.Must is a convenience wrapper that panics when passed a non-nil error value, and otherwise returns the *Template unaltered.
+var templates = template.Must(template.ParseFiles("tmpl/view.html", "tmpl/edit.html", "tmpl/main.go.html"))
 
 var validPath = regexp.MustCompile("^/(view|edit|save)/([a-zA-Z0-9]+)$")
 
 type Page struct {
-
 	Title string
 	Body  []byte // that is the type expected by the io libraries we will use
 }
@@ -26,7 +25,7 @@ func (p *Page) Save() error { // returns an error value because that is the retu
 }
 
 func loadPage(title string) (*Page, error) {
-	
+
 	fileName := "data/" + title + ".txt"
 
 	body, err := os.ReadFile(fileName) //The standard library function os.ReadFile returns []byte and error.
@@ -40,15 +39,15 @@ func loadPage(title string) (*Page, error) {
 	return &Page{title, body}, nil
 }
 
-func makeHandler(fn func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc{
+func makeHandler(fn func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc {
 
-	return func(w http.ResponseWriter, r *http.Request){
-		
-		m:= validPath.FindStringSubmatch(r.URL.Path)
+	return func(w http.ResponseWriter, r *http.Request) {
 
-		if m == nil{
+		m := validPath.FindStringSubmatch(r.URL.Path)
+
+		if m == nil {
 			http.NotFound(w, r)
-			return 
+			return
 		}
 
 		fn(w, r, m[2])
@@ -79,33 +78,33 @@ func editHandler(w http.ResponseWriter, r *http.Request, title string) {
 }
 
 func saveHandler(w http.ResponseWriter, r *http.Request, title string) {
-	
+
 	body := r.FormValue("body")
 
 	p := &Page{Title: title, Body: []byte(body)}
 	err := p.Save()
 
-	if err != nil{
-		http.Error(w, err.Error(), http.StatusInternalServerError )
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	http.Redirect(w, r, "/view/"+title, http.StatusFound)
 }
 
-func mainHandler(w http.ResponseWriter, r *http.Request){
-	
-	renderTemplate(w, "main", nil)
-   
+func mainHandler(w http.ResponseWriter, r *http.Request) {
+
+	renderTemplate(w, "main.go", nil)
+
 }
 
 func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
 
-	err := templates.ExecuteTemplate(w, tmpl + ".html", p)
+	err := templates.ExecuteTemplate(w, tmpl+".html", p)
 
-	if err != nil{
+	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return 
+		return
 	}
 }
 

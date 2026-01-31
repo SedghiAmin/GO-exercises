@@ -2,6 +2,6 @@ go 1.25.5
 
 use (
 	./example/hello
-	./hello //The use directive tells Go that the module in the hello directory should be main modules when doing a build. So in any subdirectory of workspace the module will be active.
+	./hello //The use directive tells Go that the module in the hello directory should be main.go modules when doing a build. So in any subdirectory of workspace the module will be active.
 
 )
