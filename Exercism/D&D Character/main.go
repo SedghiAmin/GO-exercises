@@ -3,6 +3,7 @@ package main
 import (
 	"math"
 	"math/rand"
+	"time"
 )
 
 type Character struct {
@@ -38,4 +39,19 @@ func Ability() int {
 	}
 
 	return sum
+}
+
+// GenerateCharacter creates a new Character with random scores for abilities
+func GenerateCharacter() Character {
+	rand.Seed(time.Now().UnixNano())
+	char := Character{
+		Strength:     Ability(),
+		Dexterity:    Ability(),
+		Constitution: Ability(),
+		Intelligence: Ability(),
+		Wisdom:       Ability(),
+		Charisma:     Ability(),
+	}
+	char.Hitpoints = 10 + Modifier(char.Constitution)
+	return char
 }
