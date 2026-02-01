@@ -3,9 +3,10 @@ package main
 import "fmt"
 
 func Reverse(input string) string {
-	r := make([]rune, len(input))
-	step := len(input) - 1
-	for _, char := range input {
+	runes := []rune(input)
+	r := make([]rune, len(runes))
+	step := len(runes) - 1
+	for _, char := range runes {
 		r[step] = char
 		step--
 	}
