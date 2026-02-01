@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math"
 	"math/rand"
 	"time"
@@ -54,4 +55,17 @@ func GenerateCharacter() Character {
 	}
 	char.Hitpoints = 10 + Modifier(char.Constitution)
 	return char
+}
+
+func main() {
+	character := GenerateCharacter()
+
+	fmt.Printf("Strength: %d\n", character.Strength)
+	fmt.Printf("Dexterity: %d\n", character.Dexterity)
+	fmt.Printf("Constitution: %d (Modifier: %d)\n",
+		character.Constitution, Modifier(character.Constitution))
+	fmt.Printf("Intelligence: %d\n", character.Intelligence)
+	fmt.Printf("Wisdom: %d\n", character.Wisdom)
+	fmt.Printf("Charisma: %d\n", character.Charisma)
+	fmt.Printf("Hitpoints: %d\n", character.Hitpoints)
 }
