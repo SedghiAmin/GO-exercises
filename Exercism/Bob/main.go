@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 	"unicode"
 )
@@ -27,4 +28,27 @@ func Hey(remark string) string {
 		return "Sure."
 	}
 	return "Whatever."
+}
+
+func main() {
+
+	testCases := []string{
+		"",
+		"   ",
+		"How are you?",
+		"HELLO",
+		"WHAT ARE YOU DOING?",
+		"1, 2, 3",
+		"1, 2, 3?",
+		"HELLO 123?",
+		"hello?",
+	}
+
+	fmt.Println("Quick tests for Hey():")
+	fmt.Println(strings.Repeat("-", 40))
+
+	for _, test := range testCases {
+		result := Hey(test)
+		fmt.Printf("Hey(%q) = %q\n", test, result)
+	}
 }
