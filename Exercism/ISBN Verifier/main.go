@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 	"unicode"
 )
@@ -29,4 +30,21 @@ func IsValidISBN(isbn string) bool {
 		}
 	}
 	return sum%11 == 0
+}
+
+func main() {
+	isbns := []string{
+		"3-598-21508-8",
+		"3-598-21507-X",
+		"359821507X",
+		"3-598-21508-9",
+	}
+
+	fmt.Println("Check ISBN-10:")
+	fmt.Println("==============")
+
+	for _, isbn := range isbns {
+		fmt.Printf("'%s': %v\n", isbn, IsValidISBN(isbn))
+	}
+
 }
