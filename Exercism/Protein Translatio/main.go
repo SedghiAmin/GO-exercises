@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 )
 
 var (
@@ -60,4 +61,40 @@ func FromCodon(codon string) (string, error) {
 		return protein, nil
 	}
 	return "", ErrInvalidBase
+}
+
+func main() {
+
+	fmt.Println("=== Basic Tests ===")
+
+	rna1 := "AUGUUUUCU"
+	proteins1, err1 := FromRNA(rna1)
+	fmt.Printf("RNA: %s\n", rna1)
+	if err1 != nil {
+		fmt.Printf("Error: %v\n", err1)
+	} else {
+		fmt.Printf("Proteins: %v\n", proteins1)
+	}
+
+	fmt.Println()
+
+	rna2 := "AUGUUUUAAUCU"
+	proteins2, err2 := FromRNA(rna2)
+	fmt.Printf("RNA: %s\n", rna2)
+	if err2 != nil {
+		fmt.Printf("Error: %v\n", err2)
+	} else {
+		fmt.Printf("Proteins: %v\n", proteins2)
+	}
+
+	fmt.Println()
+
+	rna3 := "AUGXYZUCU"
+	proteins3, err3 := FromRNA(rna3)
+	fmt.Printf("RNA: %s\n", rna3)
+	if err3 != nil {
+		fmt.Printf("Error: %v\n", err3)
+	} else {
+		fmt.Printf("Proteins: %v\n", proteins3)
+	}
 }
