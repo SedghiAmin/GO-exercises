@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 )
 
 var (
@@ -51,4 +50,14 @@ func FromRNA(rna string) ([]string, error) {
 		}
 	}
 	return r, nil
+}
+
+func FromCodon(codon string) (string, error) {
+	if protein, ok := acid[codon]; ok {
+		if protein == "STOP" {
+			return "", ErrStop
+		}
+		return protein, nil
+	}
+	return "", ErrInvalidBase
 }
