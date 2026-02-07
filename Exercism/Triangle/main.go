@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type Kind int
 
 const (
@@ -32,4 +34,12 @@ func KindFromSides(a, b, c float64) Kind {
 		}
 	}
 	return Sca
+}
+func main() {
+
+	fmt.Println("Test 1 (2, 2, 2):", KindFromSides(2, 2, 2))
+	fmt.Println("Test 2 (3, 4, 4):", KindFromSides(3, 4, 4))
+	fmt.Println("Test 3 (3, 4, 5):", KindFromSides(3, 4, 5))
+	fmt.Println("Test 4 (0, 4, 5):", KindFromSides(0, 4, 5))
+	fmt.Println("Test 5 (1, 1, 3):", KindFromSides(1, 1, 3))
 }
