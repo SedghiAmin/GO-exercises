@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"sort"
 	"strings"
 	"unicode"
@@ -27,4 +28,12 @@ func Detect(subject string, candidates []string) []string {
 		}
 	}
 	return anagrams
+}
+
+func main() {
+	target := "stone"
+	candidates := []string{"stone", "tones", "banana", "tons", "notes", "Seton"}
+
+	result := Detect(target, candidates)
+	fmt.Println(result) // output: [tones notes Seton]
 }
