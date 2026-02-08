@@ -14,3 +14,17 @@ func NormalizeWords(str string) string {
 	})
 	return string(runes)
 }
+
+func Detect(subject string, candidates []string) []string {
+	NormalizeSubject := NormalizeWords(subject)
+	anagrams := make([]string, 0, len(candidates))
+	for _, candidate := range candidates {
+		if strings.EqualFold(subject, candidate) {
+			continue
+		}
+		if NormalizeWords(candidate) == NormalizeSubject {
+			anagrams = append(anagrams, candidate)
+		}
+	}
+	return anagrams
+}
