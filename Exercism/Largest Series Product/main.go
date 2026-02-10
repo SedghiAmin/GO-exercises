@@ -14,7 +14,7 @@ func LargestSeriesProduct(digits string, span int) (int64, error) {
 		return 0, fmt.Errorf("span must not be negative")
 	}
 	var sum int64
-	result := make([]int64, len(digits))
+	result := make([]int64, len(digits)-span+1)
 	sum = 1
 	digitsRunes := []rune(digits)
 	for i := 0; i <= len(digitsRunes)-span; i++ {
