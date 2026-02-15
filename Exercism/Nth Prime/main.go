@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 )
 
 func Nth(n int) (int, error) {
@@ -30,4 +31,14 @@ func Nth(n int) (int, error) {
 		p = 0
 	}
 	return prime, nil
+}
+
+func main() {
+	fmt.Println(Nth(1)) // 2
+	fmt.Println(Nth(2)) // 3
+	fmt.Println(Nth(3)) // 5
+	fmt.Println(Nth(4)) // 7
+	fmt.Println(Nth(5)) // 11
+	fmt.Println(Nth(6)) // 13
+	fmt.Println(Nth(0)) // 0, errors:incorrect number
 }
