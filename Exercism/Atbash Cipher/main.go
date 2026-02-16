@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 	"unicode"
 )
@@ -31,4 +32,12 @@ func Atbash(s string) string {
 		result.WriteRune(c)
 	}
 	return result.String()
+}
+func main() {
+	fmt.Println(Atbash("test"))                                         //gvhg
+	fmt.Println(Atbash("x123 yes"))                                     //c123b vh
+	fmt.Println(Atbash("gvhg"))                                         //test
+	fmt.Println(Atbash("hello world"))                                  //svool dliow
+	fmt.Println(Atbash("Testing,1 2 3, testing."))                      //gvhgr mt123 gvhgr mt
+	fmt.Println(Atbash("The quick brown fox jumps over the lazy dog.")) //gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt
 }
