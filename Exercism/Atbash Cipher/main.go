@@ -10,15 +10,12 @@ func Atbash(s string) string {
 	var output strings.Builder
 	s = strings.ReplaceAll(s, " ", "")
 	s = strings.ToLower(s)
-	groupByFive := 0
 	for _, c := range s {
 		if unicode.IsLetter(c) {
 			offset := c - 'a'
 			output.WriteRune('z' - offset)
-			groupByFive++
 		} else if unicode.IsDigit(c) {
 			output.WriteRune(c)
-			groupByFive++
 		}
 	}
 	if output.String() == "" {
