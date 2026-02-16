@@ -21,12 +21,6 @@ This implementation correctly handles:
 - **UTF-8 support**: Handles non-ASCII characters correctly
 - **Order preservation**: Returns anagrams in the same order as they appear in the candidate list
 
-## Installation
-
-```bash
-go get github.com/yourusername/anagram-detector
-```
-
 ## Usage
 
 ```go

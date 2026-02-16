@@ -31,8 +31,8 @@ func Detect(subject string, candidates []string) []string {
 }
 
 func main() {
-	target := "stone"
-	candidates := []string{"stone", "tones", "banana", "tons", "notes", "Seton"}
+	target := "BANANA"               // "stone"
+	candidates := []string{"banana"} //"stone", "tones", "banana", "tons", "notes", "Seton"}
 
 	result := Detect(target, candidates)
 	fmt.Println(result) // output: [tones notes Seton]
