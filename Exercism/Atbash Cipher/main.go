@@ -8,7 +8,7 @@ import (
 
 func Atbash(s string) string {
 	var output strings.Builder
-	s = strings.Replace(s, " ", "", -1)
+	s = strings.ReplaceAll(s, " ", "")
 	s = strings.ToLower(s)
 	groupByFive := 0
 	for _, c := range s {
