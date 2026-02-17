@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"strings"
 	"unicode"
 )
@@ -87,4 +86,45 @@ func NewVigenere(key string) Cipher {
 	}
 
 	return vigenere(key)
+}
+
+func (v vigenere) Encode(input string) string {
+	var output strings.Builder
+	keyLen := len(v)
+	keyIndex := 0
+
+	for _, chr := range input {
+		if unicode.IsLetter(chr) {
+			lower := unicode.ToLower(chr)
+			shift := int(v[keyIndex%keyLen] - 'a')
+
+			encoded := (int(lower-'a') + shift) % 26
+			output.WriteRune(rune(encoded) + 'a')
+
+			keyIndex++
+		}
+	}
+	return output.String()
+}
+
+func (v vigenere) Decode(input string) string {
+	var output strings.Builder
+	keyLen := len(v)
+	keyIndex := 0
+
+	for _, chr := range input {
+		if unicode.IsLetter(chr) {
+			lower := unicode.ToLower(chr)
+			shift := int(v[keyIndex%keyLen] - 'a')
+
+			decoded := (int(lower-'a') - shift) % 26
+			if decoded < 0 {
+				decoded += 26
+			}
+
+			output.WriteRune(rune(decoded) + 'a')
+			keyIndex++
+		}
+	}
+	return output.String()
 }
