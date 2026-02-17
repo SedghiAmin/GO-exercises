@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 	"unicode"
 )
@@ -64,4 +65,26 @@ func (c shift) Decode(input string) string {
 		}
 	}
 	return output.String()
+}
+
+func NewVigenere(key string) Cipher {
+	if len(key) == 0 {
+		return nil
+	}
+
+	allA := true
+	for _, chr := range key {
+		if chr < 'a' || chr > 'z' {
+			return nil
+		}
+		if chr != 'a' {
+			allA = false
+		}
+	}
+
+	if allA {
+		return nil
+	}
+
+	return vigenere(key)
 }
