@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"unicode"
 )
 
@@ -69,4 +70,41 @@ func Format(phoneNumber string) (string, error) {
 	output = append(output, '-')
 	output = append(output, runes[6:]...)
 	return string(output), nil
+}
+
+func main() {
+	test := []string{
+		"(223) 456-7890",
+		"223.456.7890",
+		"223 456   7890   ",
+		"123456789",
+		"22234567890",
+		"12234567890",
+		"+1 (223) 456-7890",
+		"321234567890",
+		"523-abc-7890",
+		"523-@:!-7890",
+		"(023) 456-7890",
+		"(123) 456-7890",
+		"(223) 056-7890",
+		"(223) 156-7890",
+		"1 (023) 456-7890",
+		"1 (123) 456-7890",
+		"1 (223) 056-7890",
+		"1 (223) 156-7890",
+	}
+	for i := range test {
+		num, err := Number(test[i])
+		area, _ := AreaCode(test[i])
+		format, _ := Format(test[i])
+		fmt.Printf(
+			"input: %v , output => value: %v , AreaCode: %v , Formatted: %v , error: %v \n",
+			test[i],
+			num,
+			area,
+			format,
+			err,
+		)
+	}
+
 }
