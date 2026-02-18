@@ -50,9 +50,7 @@ func AreaCode(phoneNumber string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	output := []rune(value)
-	output = output[:3]
-	return string(output), nil
+	return string(value[:3]), nil
 }
 
 func Format(phoneNumber string) (string, error) {
