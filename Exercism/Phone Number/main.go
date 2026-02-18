@@ -43,3 +43,13 @@ func Number(phoneNumber string) (string, error) {
 	}
 	return string(output), nil
 }
+
+func AreaCode(phoneNumber string) (string, error) {
+	value, err := Number(phoneNumber)
+	if err != nil {
+		return "", err
+	}
+	output := []rune(value)
+	output = output[:3]
+	return string(output), nil
+}
