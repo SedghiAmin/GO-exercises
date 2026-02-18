@@ -15,7 +15,7 @@ func Number(phoneNumber string) (string, error) {
 		}
 		if i == 1 && runes[0] == '+' {
 			if ch != '1' {
-				return "", errors.New("Invalid country code")
+				return "", errors.New("invalid country code")
 			}
 		}
 		if unicode.IsDigit(ch) {
