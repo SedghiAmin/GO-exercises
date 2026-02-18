@@ -4,7 +4,7 @@ import "fmt"
 
 func Sieve(limit int) []int {
 	if limit < 2 {
-		return []int{}
+		return nil
 	}
 	marked := make(map[int]bool, limit)
 	prime := make([]int, 0)
