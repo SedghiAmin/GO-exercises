@@ -60,16 +60,7 @@ func Format(phoneNumber string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	runes := []rune(value)
-	output := make([]rune, 0)
-	output = append(output, '(')
-	output = append(output, runes[:3]...)
-	output = append(output, ')')
-	output = append(output, ' ')
-	output = append(output, runes[3:6]...)
-	output = append(output, '-')
-	output = append(output, runes[6:]...)
-	return string(output), nil
+	return fmt.Sprintf("(%s) %s-%s", value[:3], value[3:6], value[6:]), nil
 }
 
 func main() {
