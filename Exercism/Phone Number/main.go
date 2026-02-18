@@ -53,3 +53,20 @@ func AreaCode(phoneNumber string) (string, error) {
 	output = output[:3]
 	return string(output), nil
 }
+
+func Format(phoneNumber string) (string, error) {
+	value, err := Number(phoneNumber)
+	if err != nil {
+		return "", err
+	}
+	runes := []rune(value)
+	output := make([]rune, 0)
+	output = append(output, '(')
+	output = append(output, runes[:3]...)
+	output = append(output, ')')
+	output = append(output, ' ')
+	output = append(output, runes[3:6]...)
+	output = append(output, '-')
+	output = append(output, runes[6:]...)
+	return string(output), nil
+}
