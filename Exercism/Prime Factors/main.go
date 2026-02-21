@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func Factors(n int64) []int64 {
 	out := make([]int64, 0)
 	var i int64
@@ -10,4 +12,9 @@ func Factors(n int64) []int64 {
 		}
 	}
 	return out
+}
+func main() {
+	fmt.Println(Factors(10))
+	fmt.Println(Factors(20))
+	fmt.Println(Factors(60))
 }
