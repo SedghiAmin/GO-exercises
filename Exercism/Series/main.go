@@ -11,9 +11,10 @@ func All(n int, s string) []string {
 }
 
 func UnsafeFirst(n int, s string) string {
-	panic("Please implement the UnsafeFirst function")
+	return s[0:n]
 }
 
 func main() {
 	fmt.Println(All(3, "49142"))
+	fmt.Println(UnsafeFirst(3, "49142"))
 }
