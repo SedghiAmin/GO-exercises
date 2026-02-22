@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 // Relation is the comparison between lists
 type Relation string
 
@@ -57,4 +59,10 @@ func Sublist(l1, l2 []int) Relation {
 		}
 	}
 	return RelationEqual
+}
+
+func main() {
+	listOne := []int{1, 2, 5}
+	listTwo := []int{0, 1, 2, 3, 1, 2, 5, 6}
+	fmt.Println(Sublist(listOne, listTwo))
 }
