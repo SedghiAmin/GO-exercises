@@ -33,7 +33,6 @@ func Sublist(l1, l2 []int) Relation {
 			}
 			ok = 0
 		}
-		ok = 0
 		return RelationUnequal
 	} else if len(l1) > len(l2) {
 		for i := 0; i < len(l1); i++ {
@@ -49,7 +48,6 @@ func Sublist(l1, l2 []int) Relation {
 			}
 			ok = 0
 		}
-		ok = 0
 		return RelationUnequal
 	} else if len(l1) == len(l2) {
 		for i := 0; i < len(l1); i++ {
