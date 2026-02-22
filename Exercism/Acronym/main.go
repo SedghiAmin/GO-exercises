@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 )
 
@@ -18,4 +19,9 @@ func Abbreviate(s string) string {
 		}
 	}
 	return out.String()
+}
+func main() {
+	input := "Complementary metal-oxide semiconductor"
+	//input := "Portable Network Graphics"
+	fmt.Println(Abbreviate(input))
 }
