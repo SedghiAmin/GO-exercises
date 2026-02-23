@@ -14,7 +14,13 @@ func (s IntList) Foldr(fn func(int, int) int, initial int) int {
 }
 
 func (s IntList) Filter(fn func(int) bool) IntList {
-	panic("Please implement the Filter function")
+	result := make(IntList, 0)
+	for _, v := range s {
+		if fn(v) {
+			result = result.Append(IntList{v})
+		}
+	}
+	return result
 }
 
 func (s IntList) Length() int {
@@ -61,6 +67,13 @@ func main() {
 		{5, 6, 3},
 		{9, 4, 1},
 	}
-	fmt.Println(source.Append(ext))
-	fmt.Println(source.Concat(lst))
+	fn := func(x int) bool {
+		if x%2 == 0 {
+			return true
+		}
+		return false
+	}
+	fmt.Println(source.Append(ext)) //[1 2 3 4 5 6]
+	fmt.Println(source.Concat(lst)) //[1 2 3 5 6 3 9 4 1]
+	fmt.Println(source.Filter(fn))
 }
