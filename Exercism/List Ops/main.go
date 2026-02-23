@@ -6,7 +6,10 @@ import "fmt"
 type IntList []int
 
 func (s IntList) Foldl(fn func(int, int) int, initial int) int {
-	panic("Please implement the Foldl function")
+	for _, v := range s {
+		initial = fn(v, initial)
+	}
+	return initial
 }
 
 func (s IntList) Foldr(fn func(int, int) int, initial int) int {
@@ -83,10 +86,15 @@ func main() {
 	}
 	fmt.Println(source.Append(ext)) //[1 2 3 4 5 6]
 	fmt.Println(source.Concat(lst)) //[1 2 3 5 6 3 9 4 1]
-	fmt.Println(source.Filter(fn))
+	fmt.Println(source.Filter(fn))  //[2]
 
 	fn2 := func(x int) int {
 		return x * x
 	}
-	fmt.Println(source.Map(fn2))
+	fmt.Println(source.Map(fn2)) //[1 4 9]
+
+	fn3 := func(x, y int) int {
+		return x + y
+	}
+	fmt.Println(source.Foldl(fn3, 0)) //6
 }
