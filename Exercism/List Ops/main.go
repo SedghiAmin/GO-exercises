@@ -13,7 +13,10 @@ func (s IntList) Foldl(fn func(int, int) int, initial int) int {
 }
 
 func (s IntList) Foldr(fn func(int, int) int, initial int) int {
-	panic("Please implement the Foldr function")
+	for i := s.Length() - 1; i >= 0; i-- {
+		initial = fn(s[i], initial)
+	}
+	return initial
 }
 
 func (s IntList) Filter(fn func(int) bool) IntList {
@@ -97,4 +100,5 @@ func main() {
 		return x + y
 	}
 	fmt.Println(source.Foldl(fn3, 0)) //6
+	fmt.Println(source.Foldr(fn3, 0)) //6
 }
