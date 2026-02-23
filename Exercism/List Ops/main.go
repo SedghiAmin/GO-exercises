@@ -24,11 +24,19 @@ func (s IntList) Filter(fn func(int) bool) IntList {
 }
 
 func (s IntList) Length() int {
-	panic("Please implement the Length function")
+	var l int = 0
+	for range s {
+		l++
+	}
+	return l
 }
 
 func (s IntList) Map(fn func(int) int) IntList {
-	panic("Please implement the Map function")
+	result := make(IntList, 0)
+	for _, v := range s {
+		result = result.Append(IntList{fn(v)})
+	}
+	return result
 }
 
 func (s IntList) Reverse() IntList {
@@ -76,4 +84,9 @@ func main() {
 	fmt.Println(source.Append(ext)) //[1 2 3 4 5 6]
 	fmt.Println(source.Concat(lst)) //[1 2 3 5 6 3 9 4 1]
 	fmt.Println(source.Filter(fn))
+
+	fn2 := func(x int) int {
+		return x * x
+	}
+	fmt.Println(source.Map(fn2))
 }
