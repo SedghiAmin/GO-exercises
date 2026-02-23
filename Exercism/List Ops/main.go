@@ -46,7 +46,11 @@ func (s IntList) Map(fn func(int) int) IntList {
 }
 
 func (s IntList) Reverse() IntList {
-	panic("Please implement the Reverse function")
+	result := make(IntList, 0)
+	for i := len(s) - 1; i >= 0; i-- {
+		result = result.Append(IntList{s[i]})
+	}
+	return result
 }
 
 func (s IntList) Append(lst IntList) IntList {
@@ -101,4 +105,5 @@ func main() {
 	}
 	fmt.Println(source.Foldl(fn3, 0)) //6
 	fmt.Println(source.Foldr(fn3, 0)) //6
+	fmt.Println(source.Reverse())     //[3 2 1]
 }
