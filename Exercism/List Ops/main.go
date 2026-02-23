@@ -7,7 +7,7 @@ type IntList []int
 
 func (s IntList) Foldl(fn func(int, int) int, initial int) int {
 	for _, v := range s {
-		initial = fn(v, initial)
+		initial = fn(initial, v)
 	}
 	return initial
 }
