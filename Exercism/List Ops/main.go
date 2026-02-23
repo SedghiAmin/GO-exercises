@@ -41,11 +41,26 @@ func (s IntList) Append(lst IntList) IntList {
 }
 
 func (s IntList) Concat(lists []IntList) IntList {
-	panic("Please implement the Concat function")
+	totalLen := 0
+	for _, lst := range lists {
+		totalLen += len(lst)
+	}
+
+	result := make(IntList, 0, totalLen)
+	result = s
+	for _, lst := range lists {
+		result = result.Append(lst)
+	}
+	return result
 }
 
 func main() {
 	var source IntList = []int{1, 2, 3}
-	var lst IntList = []int{4, 5, 6}
-	fmt.Println(source.Append(lst))
+	var ext IntList = []int{4, 5, 6}
+	var lst []IntList = []IntList{
+		{5, 6, 3},
+		{9, 4, 1},
+	}
+	fmt.Println(source.Append(ext))
+	fmt.Println(source.Concat(lst))
 }
