@@ -74,3 +74,7 @@ func Recite(startBottles, takeDown int) []string {
 	}
 	return result
 }
+
+func main() {
+	fmt.Println(Recite(5, 3))
+}
