@@ -1,5 +1,10 @@
 package main
 
+import (
+	"strings"
+	"unicode"
+)
+
 func numToWord(num int) string {
 	switch num {
 	case 1:
@@ -24,4 +29,22 @@ func numToWord(num int) string {
 		return "ten green bottles"
 	}
 	return ""
+}
+
+func CapitalizeFirst(s string) string {
+	if s == "" {
+		return ""
+	}
+
+	r := []rune(s)
+	var builder strings.Builder
+	builder.Grow(len(s))
+
+	builder.WriteString(string(unicode.ToUpper(r[0])))
+
+	if len(r) > 1 {
+		builder.WriteString(string(r[1:]))
+	}
+
+	return builder.String()
 }
