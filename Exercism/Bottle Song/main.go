@@ -3,51 +3,32 @@ package main
 import (
 	"fmt"
 	"strings"
-	"unicode"
 )
 
 func NumToWord(num int) string {
 	switch num {
 	case 1:
-		return "one green bottle"
+		return "One green bottle"
 	case 2:
-		return "two green bottles"
+		return "Two green bottles"
 	case 3:
-		return "three green bottles"
+		return "Three green bottles"
 	case 4:
-		return "four green bottles"
+		return "Four green bottles"
 	case 5:
-		return "five green bottles"
+		return "Five green bottles"
 	case 6:
-		return "six green bottles"
+		return "Six green bottles"
 	case 7:
-		return "seven green bottles"
+		return "Seven green bottles"
 	case 8:
-		return "eight green bottles"
+		return "Eight green bottles"
 	case 9:
-		return "nine green bottles"
+		return "Nine green bottles"
 	case 10:
-		return "ten green bottles"
+		return "Ten green bottles"
 	}
 	return ""
-}
-
-func CapitalizeFirst(s string) string {
-	if s == "" {
-		return ""
-	}
-
-	r := []rune(s)
-	var builder strings.Builder
-	builder.Grow(len(s))
-
-	builder.WriteString(string(unicode.ToUpper(r[0])))
-
-	if len(r) > 1 {
-		builder.WriteString(string(r[1:]))
-	}
-
-	return builder.String()
 }
 
 func Recite(startBottles, takeDown int) []string {
@@ -59,8 +40,8 @@ func Recite(startBottles, takeDown int) []string {
 	}
 	result := make([]string, 0, startBottles-takeDown+1)
 	for i := startBottles; i > startBottles-takeDown; i-- {
-		result = append(result, fmt.Sprintf("%v hanging on the wall,", CapitalizeFirst(NumToWord(i))))
-		result = append(result, fmt.Sprintf("%v hanging on the wall,", CapitalizeFirst(NumToWord(i))))
+		result = append(result, fmt.Sprintf("%v hanging on the wall,", NumToWord(i)))
+		result = append(result, fmt.Sprintf("%v hanging on the wall,", strings.ToLower(NumToWord(i))))
 		result = append(result, fmt.Sprintf("And if one green bottle should accidentally fall,"))
 		if i == 1 {
 			result = append(result, fmt.Sprintf("There'll be no green bottles hanging on the wall."))
