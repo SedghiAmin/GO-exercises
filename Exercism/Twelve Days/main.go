@@ -36,3 +36,17 @@ func Verse(i int) string {
 	result.WriteString(".")
 	return result.String()
 }
+
+func Song() string {
+	result := ""
+	for i := 1; i <= 12; i++ {
+		result += Verse(i)
+		if i+1 <= 12 {
+			result += "\n"
+		}
+	}
+	return result
+}
+func main() {
+	fmt.Println(Song())
+}
